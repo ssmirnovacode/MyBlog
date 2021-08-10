@@ -6,6 +6,7 @@ exports.getIndex = (req,res,next) => {
         .then(posts => {
             res.render('index', {
                 pageTitle: 'Home',
+                path: '/',
                 posts: posts
             })
         })

@@ -3,13 +3,20 @@
 </head>
 
 <body>
+    <%- include('./includes/navigation.ejs') %>
 
     <main class="container">
         <h1>Welcome to my blog</h1>
         <h2>Posts:</h2>
         <ul>
             <% posts.map(p => { %>
-                <li><%= p.title %>: <%= p.text %></li>
+                <div>
+                    <h3><%= p.title %></h3>
+                    <h5><%= p.createdAt %></h5>
+                    <div>
+                        <%= p.text %>
+                    </div>
+                </div>
             <% }) %>
         </ul>
     </main>

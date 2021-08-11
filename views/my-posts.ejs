@@ -8,7 +8,8 @@
     <main class="container">
         <h2>My posts:</h2>
         <ul>
-            <% posts.map(p => { %>
+            <% if (posts.length > 0) { 
+                    posts.map(p => { %>
                 <div>
                     <h3><%= p.title %></h3>
                     <h5><%= p.createdAt %></h5>
@@ -16,7 +17,9 @@
                         <%= p.text %>
                     </div>
                 </div>
-            <% }) %>
+            <% }) } else { %>
+                <div> No posts found for this user</div>
+            <% }  %>
         </ul>
     </main>
 <%- include('./includes/end.ejs') %>

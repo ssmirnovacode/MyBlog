@@ -14,9 +14,9 @@ exports.getIndex = (req,res,next) => {
 };
 
 exports.getPostsByUserId = (req,res,next) => {
-    const userId = req.params.userId;
+    const userId = req.user._id;
 
-    Post.findOne({ userId: userId })
+    Post.find({ userId: userId })
         .then(posts => {
             res.render('my-posts', {
                 pageTitle: 'My posts',
@@ -33,3 +33,17 @@ exports.getAddPost = (req,res,next) => {
         path: '/add-post'
     })
 };
+
+exports.postAddPost = (req,res,next) => {
+    const userId = req.user._id;
+    const title = req.body.title;
+    const text = req.body.text;
+
+    const post = new Post({ userId, title, text });
+
+    post.save()
+    .then(() => {
+        res.redirect('/my-posts');
+    })
+    .catch(err => console.log(err));
+}

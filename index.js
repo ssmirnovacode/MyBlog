@@ -16,6 +16,8 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use((req,res,next) => {
     User.findOne({ _id: '6113964e653b494d96a97a85'})
     .then(user => {

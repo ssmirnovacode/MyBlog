@@ -6,11 +6,11 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
-    /* userId: {
+    userId: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'User'
-    }, */
+    },
     text: {
         type: String,
         required: true

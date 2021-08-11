@@ -8,4 +8,6 @@ router.get('/my-posts', mainController.getPostsByUserId);
 
 router.get('/add-post', mainController.getAddPost);
 
+router.post('/add-post', mainController.postAddPost);
+
 module.exports = router;

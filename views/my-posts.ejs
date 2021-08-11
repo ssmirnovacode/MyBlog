@@ -28,7 +28,7 @@
                                 <a href="/edit-post/<%= p._id %>" class="btn warning">Edit</a>
                                 <form action="/delete-post" method="POST">
                                     <input type="hidden" value="<%= p._id %>" name="postId" >
-                                    
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                     <button class="btn danger" type="submit">Delete</button>
                                 </form>
         

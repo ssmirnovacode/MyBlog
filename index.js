@@ -4,6 +4,7 @@ const path =  require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const csrf = require('csurf');
 
 const User = require('./models/User');
 
@@ -11,6 +12,8 @@ const mainRoutes = require('./routes/mainRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 const MONGODB_URI = 'mongodb+srv://svetlana:node-mongo21@cluster0.rkavg.mongodb.net/blog';
+
+const csrfProtection = csrf();
 
 const app = express();
 
@@ -32,6 +35,8 @@ app.use(session({
     store: storage
 }));
 
+app.use(csrfProtection);
+
 app.use((req,res,next) => {
     if (!req.session.user) {
         next();
@@ -49,7 +54,7 @@ app.use((req,res,next) => {
 //setting up data for every view to be rendered:
 app.use((req,res,next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
-    //res.locals.csrfToken = req.csrfToken();
+    res.locals.csrfToken = req.csrfToken();
     next();
 });
 

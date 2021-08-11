@@ -15,6 +15,7 @@
                 <label for="text">Content</label>
                 <textarea name="text" id="text" rows="5"></textarea>
             </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <button class="btn" type="submit">Publish</button>
         </form>
     </main>

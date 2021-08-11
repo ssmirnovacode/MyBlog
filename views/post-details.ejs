@@ -13,8 +13,8 @@
                 </h3>
                 <h4>By <% post.userId && post.userId %> </h4>
                 <h5>Created: <%= post.createdAt %></h5>
-                <% if (post.editedAt) { %>
-                <h5>Edited: <%= post.editedAt %></h5>
+                <% if (post.updatedAt) { %>
+                <h5>Updated: <%= post.updatedAt %></h5>
                 <% } %>
             </header>
 

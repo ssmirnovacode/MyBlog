@@ -55,7 +55,7 @@ exports.getPostById = (req,res,next) => {
     .then(post => {
         const author = post.userId;
         const currentUser = req.session.user._id.toString();
-        console.log(author === currentUser);
+        //console.log(author === currentUser);
         res.render('post-details', {
             pageTitle: post.title,
             path: `/posts/${post._id}`,
@@ -77,8 +77,30 @@ exports.getEditPost = (req,res,next) => {
             oldData: {
                 title: post.title,
                 text: post.text
-            }
+            },
+            post: post
         })
     })
-    
-}
+};
+
+exports.postEditPost = (req,res,next) => {
+    const currentUser = req.user._id;
+    const title = req.body.title;
+    const text = req.body.text;
+    const id = req.body.postId;
+
+    Post.findOne({ _id: id })
+    .then(post => {
+        if (post.userId.toString() === currentUser.toString()) { // checking is user is author
+            post.title = title;
+            post.text = text;
+            post.updatedAt = Date.now();
+
+            post.save()
+            .then(() => res.redirect(`/posts/${post._id}`))
+            .catch(err => console.log(err));
+        }
+        else res.redirect('/my-posts'); // flash an error here
+    })
+    .catch(err => console.log(err));
+};

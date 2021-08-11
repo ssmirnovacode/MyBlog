@@ -104,3 +104,13 @@ exports.postEditPost = (req,res,next) => {
     })
     .catch(err => console.log(err));
 };
+
+exports.deletePost = (req,res,next) => {
+    const id = req.body.postId;
+
+    Post.deleteOne({ _id: id, userId: req.session.user._id})
+    .then(() => res.redirect('/my-posts'))
+    .catch(err => {
+        console.log(err); // flash an error
+    });
+}

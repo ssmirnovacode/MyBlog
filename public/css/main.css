@@ -141,3 +141,32 @@ body {
     z-index: 5;
     display: none;
   }
+
+  .btn {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    text-decoration: none;
+    font: inherit;
+    border: 1px solid #00695c;
+    color: #00695c;
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .btn:hover,
+  .btn:active {
+    background-color: #00695c;
+    color: white;
+  }
+  
+  .btn.danger {
+    color: red;
+    border-color: red;
+  }
+  
+  .btn.danger:hover,
+  .btn.danger:active {
+    background: red;
+    color: white;
+  }

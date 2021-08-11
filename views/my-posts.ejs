@@ -1,0 +1,22 @@
+<%- include('./includes/head.ejs') %>
+    
+</head>
+
+<body>
+    <%- include('./includes/navigation.ejs') %>
+
+    <main class="container">
+        <h2>My posts:</h2>
+        <ul>
+            <% posts.map(p => { %>
+                <div>
+                    <h3><%= p.title %></h3>
+                    <h5><%= p.createdAt %></h5>
+                    <div>
+                        <%= p.text %>
+                    </div>
+                </div>
+            <% }) %>
+        </ul>
+    </main>
+<%- include('./includes/end.ejs') %>

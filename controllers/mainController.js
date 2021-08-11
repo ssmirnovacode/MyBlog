@@ -13,6 +13,23 @@ exports.getIndex = (req,res,next) => {
         .catch(err => console.log(err));
 };
 
-exports.getPosts = (req,res,next) => {
-    
-}
+exports.getPostsByUserId = (req,res,next) => {
+    const userId = req.params.userId;
+
+    Post.findOne({ userId: userId })
+        .then(posts => {
+            res.render('my-posts', {
+                pageTitle: 'My posts',
+                path: '/my-posts',
+                posts: posts
+            })
+        })
+        .catch(err => console.log(err));
+};
+
+exports.getAddPost = (req,res,next) => {
+    res.render('add-post', {
+        pageTitle: 'Add post',
+        path: '/add-post'
+    })
+};

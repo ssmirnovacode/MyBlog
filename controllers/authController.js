@@ -18,3 +18,17 @@ exports.postSignup = (req,res,next) => {
     .then(() => res.redirect('/'))
     .catch(err => console.log(err));
 };
+
+exports.getLogin = (req,res,next) => {
+    res.render('login', {
+        pageTitle: 'Login',
+        path: '/login'
+    })
+};
+
+exports.postLogin = (req,res,next) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+   
+};

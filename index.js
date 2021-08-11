@@ -44,7 +44,14 @@ app.use((req,res,next) => {
         })
         .catch(err => console.log(err));
     }  
-})
+});
+
+//setting up data for every view to be rendered:
+app.use((req,res,next) => {
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    //res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 app.use(mainRoutes);
 app.use(authRoutes);

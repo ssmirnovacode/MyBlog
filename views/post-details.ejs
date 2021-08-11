@@ -25,14 +25,15 @@
                 </p>
             </div>
             <div class="card__actions">
-                <a href="/posts/<%= post._id %>" class="btn">View</a>
+                
+                <% if (isAuthenticated) { %>
                 <a href="/edit-post/<%= post._id %>?edit=true" class="btn warning">Edit</a>
                 <form action="/delete-post" method="POST">
                     <input type="hidden" value="<%= post._id %>" name="postId" >
                     
                     <button class="btn danger" type="submit">Delete</button>
                 </form>
-
+                <% } %>
             </div>
         </article>
 

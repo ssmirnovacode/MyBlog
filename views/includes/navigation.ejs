@@ -6,12 +6,14 @@
             <li class="main-header__item">
                 <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
             </li>
+            <% if (isAuthenticated) { %>
             <li class="main-header__item">
                 <a class="<%= path === '/my-posts' ? 'active' : '' %>" href="/my-posts">My posts</a>
             </li>
             <li class="main-header__item">
                 <a class="<%= path === '/add-posr' ? 'active' : '' %>" href="/add-post">Add post</a>
             </li>
+            <% } %>
         </ul>
         <ul class="main-header__item-list">
 
@@ -21,13 +23,13 @@
                 <li class="main-header__item">
                     <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
                 </li>
-
+                <% if (isAuthenticated) { %>
                 <li class="main-header__item">
                     <form action="/logout" method="post">
                         <button type="submit">Logout</button>
                     </form>
                 </li>
-
+                <% } %>
 
         </ul>
     </nav>

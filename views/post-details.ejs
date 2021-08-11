@@ -11,7 +11,7 @@
                 <h3 class="post__title">
                     <%= post.title %>
                 </h3>
-                <h4>By <% post.userId && post.userId %> </h4>
+                <h4>by <%= post.author  %> </h4>
                 <h5>Created: <%= post.createdAt %></h5>
                 <% if (post.updatedAt) { %>
                 <h5>Updated: <%= post.updatedAt %></h5>

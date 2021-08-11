@@ -1,5 +1,6 @@
 const express = require('express');
 const Post = require('../models/Post');
+const User = require('../models/User');
 
 exports.getIndex = (req,res,next) => {
     Post.find()
@@ -38,10 +39,15 @@ exports.postAddPost = (req,res,next) => {
     const userId = req.user._id;
     const title = req.body.title;
     const text = req.body.text;
+    let author;
 
-    const post = new Post({ userId, title, text });
+    User.findOne( { _id: userId })
+    .then(user => {
+        author = user.name;
+        const post = new Post({ userId, title, text, author });
 
-    post.save()
+        return post.save()
+    })
     .then(() => {
         res.redirect('/my-posts');
     })
@@ -53,15 +59,16 @@ exports.getPostById = (req,res,next) => {
 
     Post.findOne({ _id: id })
     .then(post => {
-        const author = post.userId;
+        const authorId = post.userId;
         const currentUser = req.session.user ? req.session.user._id.toString() : null;
-        //console.log(author === currentUser);
+        
         res.render('post-details', {
             pageTitle: post.title,
             path: `/posts/${post._id}`,
             post: post,
-            viewedByAuthor: req.session.user ? author.toString() === currentUser.toString() : false
+            viewedByAuthor: req.session.user ? authorId.toString() === currentUser.toString() : false
         });
+        
     })
     .catch(err => console.log(err));
 };

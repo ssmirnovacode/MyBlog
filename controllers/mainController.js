@@ -46,4 +46,18 @@ exports.postAddPost = (req,res,next) => {
         res.redirect('/my-posts');
     })
     .catch(err => console.log(err));
+};
+
+exports.getPostById = (req,res,next) => {
+    const id = req.params.postId;
+
+    Post.findOne({ _id: id })
+    .then(post => {
+        res.render('post-details', {
+            pageTitle: post.title,
+            path: `/posts/${post._id}`,
+            post: post
+        });
+    })
+    .catch(err => console.log(err));
 }

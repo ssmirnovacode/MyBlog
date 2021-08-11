@@ -171,6 +171,17 @@ body {
     color: white;
   }
 
+  .btn.warning {
+    color: orange;
+    border-color: orange;
+  }
+  
+  .btn.warning:hover,
+  .btn.warning:active {
+    background: orange;
+    color: white;
+  }
+
   .grid {
     display: flex;
     flex-direction: column;

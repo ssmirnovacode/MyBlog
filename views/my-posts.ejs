@@ -25,11 +25,12 @@
                                 </p>
                             </div>
                             <div class="card__actions">
-                                <a href="/edit-post/<%= p._id %>?edit=true" class="btn">Edit</a>
-                                <form action="/admin/delete-post" method="POST">
+                                <a href="/posts/<%= p._id %>" class="btn">View</a>
+                                <a href="/edit-post/<%= p._id %>?edit=true" class="btn warning">Edit</a>
+                                <form action="/delete-post" method="POST">
                                     <input type="hidden" value="<%= p._id %>" name="postId" >
                                     
-                                    <button class="btn" type="submit">Delete</button>
+                                    <button class="btn danger" type="submit">Delete</button>
                                 </form>
         
                             </div>

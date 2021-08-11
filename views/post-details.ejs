@@ -1,0 +1,40 @@
+<%- include('./includes/head.ejs') %>
+<link rel="stylesheet" href="/css/card.css">
+</head>
+
+<body>
+    <%- include('./includes/navigation.ejs') %>
+    <main class="container">
+
+        <article class="card post-item">
+            <header class="card__header">
+                <h3 class="post__title">
+                    <%= post.title %>
+                </h3>
+                <h4>By <% post.userId && post.userId %> </h4>
+                <h5>Created: <%= post.createdAt %></h5>
+                <% if (post.editedAt) { %>
+                <h5>Edited: <%= post.editedAt %></h5>
+                <% } %>
+            </header>
+
+            <div class="card__content">
+
+                <p class="post__description">
+                    <%= post.text %>
+                </p>
+            </div>
+            <div class="card__actions">
+                <a href="/posts/<%= post._id %>" class="btn">View</a>
+                <a href="/edit-post/<%= post._id %>?edit=true" class="btn warning">Edit</a>
+                <form action="/delete-post" method="POST">
+                    <input type="hidden" value="<%= post._id %>" name="postId" >
+                    
+                    <button class="btn danger" type="submit">Delete</button>
+                </form>
+
+            </div>
+        </article>
+
+    </main>
+    <%- include('./includes/end.ejs') %>

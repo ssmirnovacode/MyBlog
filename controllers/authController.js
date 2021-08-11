@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 exports.getSignup = (req,res,next) => {
     res.render('signup', {
@@ -12,9 +13,11 @@ exports.postSignup = (req,res,next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    const user = new User({ name, email, password });
-
-    user.save()
+    bcrypt.hash(password, 12)
+    .then(hashedPassword => {
+        const user = new User({ name, email, password: hashedPassword });
+        return user.save()
+    })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err));
 };
@@ -37,20 +40,24 @@ exports.postLogin = (req,res,next) => {
             res.redirect('/'); // change to rendering with old values
         }
         else {
-            if (password !== user.password) {
-                //add flash message
-                res.redirect('/'); // change to rendering with old values
-            }
-            else {
-                req.session.isLoggedIn = true;
-                req.session.user = user; 
-                req.session.save(err => { // to make sure the session was created before redirecting
-                    console.log(err);
-                    res.redirect('/my-posts');
-                }); 
-            }
+            bcrypt.compare(password, user.password)
+            .then(doMatch => {
+                if (doMatch) {
+                    req.session.isLoggedIn = true;
+                    req.session.user = user; 
+                    req.session.save(err => { // to make sure the session was created before redirecting
+                        console.log(err);
+                        res.redirect('/my-posts');
+                    }); 
+                }
+                else {
+                    res.redirect('/login');
+                }
+            })
+            .catch(err => console.log(err)); 
         }
     })
+    .catch(err => console.log(err));
 };
 
 exports.postLogout = (req,res,next) => {

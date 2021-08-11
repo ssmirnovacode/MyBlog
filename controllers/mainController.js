@@ -53,10 +53,14 @@ exports.getPostById = (req,res,next) => {
 
     Post.findOne({ _id: id })
     .then(post => {
+        const author = post.userId;
+        const currentUser = req.session.user._id.toString();
+        console.log(author === currentUser);
         res.render('post-details', {
             pageTitle: post.title,
             path: `/posts/${post._id}`,
-            post: post
+            post: post,
+            viewedByAuthor: author.toString() === currentUser.toString()
         });
     })
     .catch(err => console.log(err));

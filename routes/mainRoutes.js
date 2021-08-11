@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mainController = require('../controllers/mainController');
-const isAuth = require('../middleware/is-auth')
+const isAuth = require('../middleware/is-auth');
 
 router.get('/', mainController.getIndex);
 

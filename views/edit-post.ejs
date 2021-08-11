@@ -16,7 +16,8 @@
                 <textarea name="text" id="text" rows="5"><%= oldData.text %></textarea>
             </div>
             <input type="hidden" value="<%= post._id %>" name="postId" >
-            <button class="btn" type="submit">Update</button>
+            <button class="btn warning" type="submit">Update</button>
+            <a class="btn" href="/posts/<%= post._id %>" class="btn">Cancel</a>
         </form>
     </main>
 <%- include('./includes/end.ejs') %>

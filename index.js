@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path =  require('path');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const User = require('./models/User');
 
@@ -16,16 +18,32 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const storage = new MongoDBStore({
+    uri: MONGODB_URI,
+    collection: 'sessions'
+});
+
+app.use(session({ 
+    secret: 'mySecretIsSafe', 
+    resave: false, 
+    saveUninitialized: false,
+    store: storage
+}));
+
 app.use((req,res,next) => {
-    User.findOne({ _id: '6113964e653b494d96a97a85'})
-    .then(user => {
-        req.user = user;
+    if (!req.session.user) {
         next();
-    })
-    .catch(err => console.log(err));
+    }
+    else {
+        User.findById(req.session.user._id)
+        .then(user => {
+            req.user = user;
+            next();
+        })
+        .catch(err => console.log(err));
+    }  
 })
 
 app.use(mainRoutes);

@@ -30,5 +30,25 @@ exports.postLogin = (req,res,next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-   
+    User.findOne({ email: email })
+    .then(user => {
+        if (!user) {
+            //add flash message
+            res.redirect('/'); // change to rendering with old values
+        }
+        else {
+            if (password !== user.password) {
+                //add flash message
+                res.redirect('/'); // change to rendering with old values
+            }
+            else {
+                req.session.isLoggedIn = true;
+                req.session.user = user; 
+                req.session.save(err => { // to make sure the session was created before redirecting
+                    console.log(err);
+                    res.redirect('/my-posts');
+                }); 
+            }
+        }
+    })
 };

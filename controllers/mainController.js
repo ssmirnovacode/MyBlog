@@ -64,4 +64,21 @@ exports.getPostById = (req,res,next) => {
         });
     })
     .catch(err => console.log(err));
+};
+
+exports.getEditPost = (req,res,next) => {
+    const id = req.params.postId;
+
+    Post.findOne({ _id: id })
+    .then(post => {
+        res.render('edit-post', {
+            pageTitle: 'Add post',
+            path: '/edit-post',
+            oldData: {
+                title: post.title,
+                text: post.text
+            }
+        })
+    })
+    
 }

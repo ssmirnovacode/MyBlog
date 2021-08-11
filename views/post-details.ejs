@@ -27,7 +27,7 @@
             <div class="card__actions">
                 
                 <% if (isAuthenticated && viewedByAuthor) { %>
-                <a href="/edit-post/<%= post._id %>?edit=true" class="btn warning">Edit</a>
+                <a href="/edit-post/<%= post._id %>" class="btn warning">Edit</a>
                 <form action="/delete-post" method="POST">
                     <input type="hidden" value="<%= post._id %>" name="postId" >
                     

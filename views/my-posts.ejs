@@ -26,7 +26,7 @@
                             </div>
                             <div class="card__actions">
                                 <a href="/posts/<%= p._id %>" class="btn">View</a>
-                                <a href="/edit-post/<%= p._id %>?edit=true" class="btn warning">Edit</a>
+                                <a href="/edit-post/<%= p._id %>" class="btn warning">Edit</a>
                                 <form action="/delete-post" method="POST">
                                     <input type="hidden" value="<%= p._id %>" name="postId" >
                                     

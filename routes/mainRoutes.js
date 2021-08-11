@@ -12,4 +12,6 @@ router.post('/add-post', mainController.postAddPost);
 
 router.get('/posts/:postId', mainController.getPostById);
 
+router.get('/edit-post/:postId', mainController.getEditPost);
+
 module.exports = router;

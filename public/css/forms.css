@@ -33,3 +33,10 @@
 .form-control textarea.invalid {
   border-color: red;
 }
+
+.login-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  display: block;
+}

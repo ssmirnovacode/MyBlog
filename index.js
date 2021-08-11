@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const User = require('./models/User');
 
 const mainRoutes = require('./routes/mainRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const MONGODB_URI = 'mongodb+srv://svetlana:node-mongo21@cluster0.rkavg.mongodb.net/blog';
 
@@ -28,7 +29,7 @@ app.use((req,res,next) => {
 })
 
 app.use(mainRoutes);
-
+app.use(authRoutes);
 
 mongoose.connect(MONGODB_URI)
 .then( () => {

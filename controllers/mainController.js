@@ -12,7 +12,7 @@ exports.getIndex = (req,res,next) => {
                 posts: posts
             })
         })
-        .catch(err => console.log(err));
+        .catch(err => next(new Error(err)));
 };
 
 exports.getPostsByUserId = (req,res,next) => {
@@ -26,7 +26,7 @@ exports.getPostsByUserId = (req,res,next) => {
                 posts: posts
             })
         })
-        .catch(err => console.log(err));
+        .catch(err => next(new Error(err)));
 };
 
 exports.getAddPost = (req,res,next) => {
@@ -71,7 +71,7 @@ exports.postAddPost = (req,res,next) => {
     .then(() => {
         res.redirect('/my-posts');
     })
-    .catch(err => console.log(err));
+    .catch(err => next(new Error(err)));
 };
 
 exports.getPostById = (req,res,next) => {
@@ -90,7 +90,7 @@ exports.getPostById = (req,res,next) => {
         });
         
     })
-    .catch(err => console.log(err));
+    .catch(err => next(new Error(err)));
 };
 
 exports.getEditPost = (req,res,next) => {
@@ -143,11 +143,11 @@ exports.postEditPost = (req,res,next) => {
 
             post.save()
             .then(() => res.redirect(`/posts/${post._id}`))
-            .catch(err => console.log(err));
+            .catch(err => next(new Error(err)));
         }
         else res.redirect('/my-posts'); 
     })
-    .catch(err => console.log(err));
+    .catch(err => next(new Error(err)));
 };
 
 exports.deletePost = (req,res,next) => {
@@ -155,7 +155,5 @@ exports.deletePost = (req,res,next) => {
 
     Post.deleteOne({ _id: id, userId: req.session.user._id})
     .then(() => res.redirect('/my-posts'))
-    .catch(err => {
-        console.log(err); 
-    });
+    .catch(err => next(new Error(err)));
 }

@@ -41,7 +41,7 @@ exports.postSignup = (req,res,next) => {
         return user.save()
     })
     .then(() => res.redirect('/'))
-    .catch(err => console.log(err));
+    .catch(err => next(new Error(err)));
 };
 
 exports.getLogin = (req,res,next) => {
@@ -112,10 +112,10 @@ exports.postLogin = (req,res,next) => {
                       });
                 }
             })
-            .catch(err => console.log(err)); 
+            .catch(err => next(new Error(err))); 
         }
     })  
-    .catch(err => console.log(err)); 
+    .catch(err => next(new Error(err))); 
 };
 
 exports.postLogout = (req,res,next) => {

@@ -141,7 +141,7 @@ exports.postEditPost = (req,res,next) => {
             .then(() => res.redirect(`/posts/${post._id}`))
             .catch(err => console.log(err));
         }
-        else res.redirect('/my-posts'); // flash an error here
+        else res.redirect('/my-posts'); 
     })
     .catch(err => console.log(err));
 };
@@ -152,6 +152,6 @@ exports.deletePost = (req,res,next) => {
     Post.deleteOne({ _id: id, userId: req.session.user._id})
     .then(() => res.redirect('/my-posts'))
     .catch(err => {
-        console.log(err); // flash an error
+        console.log(err); 
     });
 }

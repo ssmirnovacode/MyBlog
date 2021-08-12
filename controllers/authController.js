@@ -12,7 +12,8 @@ exports.getSignup = (req,res,next) => {
             email: '', 
             password: '',
             confirmPassword: ''
-        }
+        },
+        validationErrors: []
     })
 };
 
@@ -30,7 +31,8 @@ exports.postSignup = (req,res,next) => {
           errorMessage: errors.array()[0].msg,
           oldValues: {
             name, email, password, confirmPassword
-          }
+          },
+          validationErrors: errors.array()
         });
       }
     bcrypt.hash(password, 12)
@@ -50,7 +52,8 @@ exports.getLogin = (req,res,next) => {
         oldValues: {
             email: '', 
             password: ''
-        }
+        },
+        validationErrors: []
     })
 };
 
@@ -59,26 +62,31 @@ exports.postLogin = (req,res,next) => {
     const password = req.body.password;
 
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {       
-        return res.status(422).render('login', {
-          path: '/login',
-          pageTitle: 'Login',
-          errorMessage: errors.array()[0].msg, 
-          oldValues: {
-            email, password
-          }
-        });
+    
+    if (!errors.isEmpty()) {  
+           
+      return res.status(422).render('login', {
+        path: '/login',
+        pageTitle: 'Login',
+        errorMessage: errors.array()[0].msg, 
+        oldValues: {
+          email, password
+        },
+        validationErrors: errors.array()
+      });
       }
     User.findOne({ email: email })
     .then(user => {
         if (!user) {
+          
             res.status(422).render('login', {
                 path: '/login',
                 pageTitle: 'Login',
                 errorMessage: 'No user found for this email', 
                 oldValues: {
                   email, password
-                }
+                },
+                validationErrors: [{ param: 'email'}]
               });
         }
         else {
@@ -99,7 +107,8 @@ exports.postLogin = (req,res,next) => {
                         errorMessage: 'Incorrect password', 
                         oldValues: {
                           email, password
-                        }
+                        },
+                        validationErrors: [{ param: 'password'}]
                       });
                 }
             })

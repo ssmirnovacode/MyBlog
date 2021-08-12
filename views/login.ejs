@@ -12,11 +12,13 @@
         <form class="login-form" action="/login" method="POST" novalidate>
             <div class="form-control">
                 <label for="email">E-Mail</label>
-                <input type="email" name="email" id="email" value="<%= oldValues.email %>">
+                <input type="email" class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %> "
+                     name="email" id="email" value="<%= oldValues.email %>">
             </div>
             <div class="form-control">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" value="<%= oldValues.password %>">
+                <input type="password" class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %> "
+                     name="password" id="password" value="<%= oldValues.password %>">
             </div>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <button class="btn" type="submit">Login</button>

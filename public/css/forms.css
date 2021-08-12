@@ -31,7 +31,7 @@
 
 .form-control input.invalid, 
 .form-control textarea.invalid {
-  border-color: red;
+  border: 2px solid red;
 }
 
 .login-form {
@@ -40,3 +40,5 @@
   margin: auto;
   display: block;
 }
+
+

@@ -1,6 +1,7 @@
 const express = require('express');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const { validationResult } = require('express-validator/check');
 
 exports.getIndex = (req,res,next) => {
     Post.find()
@@ -31,7 +32,12 @@ exports.getPostsByUserId = (req,res,next) => {
 exports.getAddPost = (req,res,next) => {
     res.render('add-post', {
         pageTitle: 'Add post',
-        path: '/add-post'
+        path: '/add-post',
+        errorMessage: '', 
+        oldData: {
+            title: '',
+            text: ''
+        },
     })
 };
 
@@ -40,6 +46,18 @@ exports.postAddPost = (req,res,next) => {
     const title = req.body.title;
     const text = req.body.text;
     let author;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {       
+        return res.status(422).render('add-post', {
+          path: '/add-post',
+          pageTitle: 'Add post',
+          errorMessage: errors.array()[0].msg,
+          oldData: {
+            title, text
+          }
+        });
+    }
 
     User.findOne( { _id: userId })
     .then(user => {

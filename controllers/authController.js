@@ -2,17 +2,6 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator/check');
 
-const getFlashMessage = (req, msgName) => {
-    let message = req.flash(msgName); // 'error' is the key we set up in postLogin
-    if (message.length > 0) {
-        message = message[0]; // message in flash is a part of array  
-    }
-    else {
-        message = null;
-    }
-    return message;
-}
-
 exports.getSignup = (req,res,next) => {
     res.render('signup', {
         pageTitle: 'Sign up',

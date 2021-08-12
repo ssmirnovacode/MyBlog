@@ -11,6 +11,8 @@ const User = require('./models/User');
 const mainRoutes = require('./routes/mainRoutes');
 const authRoutes = require('./routes/authRoutes');
 
+const errorController = require('./controllers/errorController');
+
 const MONGODB_URI = 'mongodb+srv://svetlana:node-mongo21@cluster0.rkavg.mongodb.net/blog';
 
 const csrfProtection = csrf();
@@ -60,6 +62,7 @@ app.use((req,res,next) => {
 
 app.use(mainRoutes);
 app.use(authRoutes);
+app.use(errorController);
 
 mongoose.connect(MONGODB_URI)
 .then( () => {

@@ -38,7 +38,7 @@ exports.postSignup = (req,res,next) => {
         return res.status(422).render('signup', {
           path: '/signup',
           pageTitle: 'Sign up',
-          errorMessage: errors.array()[0].msg, // : ${errors.array()[0].param}
+          errorMessage: errors.array()[0].msg,
           oldValues: {
             name, email, password, confirmPassword
           }
@@ -56,7 +56,12 @@ exports.postSignup = (req,res,next) => {
 exports.getLogin = (req,res,next) => {
     res.render('login', {
         pageTitle: 'Login',
-        path: '/login'
+        path: '/login',
+        errorMessage: '', 
+        oldValues: {
+            email: '', 
+            password: ''
+        }
     })
 };
 
@@ -64,11 +69,28 @@ exports.postLogin = (req,res,next) => {
     const email = req.body.email;
     const password = req.body.password;
 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {       
+        return res.status(422).render('login', {
+          path: '/login',
+          pageTitle: 'Login',
+          errorMessage: errors.array()[0].msg, 
+          oldValues: {
+            email, password
+          }
+        });
+      }
     User.findOne({ email: email })
     .then(user => {
         if (!user) {
-            //add flash message
-            res.redirect('/'); // change to rendering with old values
+            res.status(422).render('login', {
+                path: '/login',
+                pageTitle: 'Login',
+                errorMessage: 'No user found for this email', 
+                oldValues: {
+                  email, password
+                }
+              });
         }
         else {
             bcrypt.compare(password, user.password)
@@ -82,13 +104,20 @@ exports.postLogin = (req,res,next) => {
                     }); 
                 }
                 else {
-                    res.redirect('/login');
+                    res.status(422).render('login', {
+                        path: '/login',
+                        pageTitle: 'Login',
+                        errorMessage: 'Incorrect password', 
+                        oldValues: {
+                          email, password
+                        }
+                      });
                 }
             })
             .catch(err => console.log(err)); 
         }
-    })
-    .catch(err => console.log(err));
+    })  
+    .catch(err => console.log(err)); 
 };
 
 exports.postLogout = (req,res,next) => {

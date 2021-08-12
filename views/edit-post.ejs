@@ -6,6 +6,9 @@
    <%- include('./includes/navigation.ejs') %>
 
     <main>
+        <% if (errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
         <form class="post-form" action="/edit-post" method="POST">
             <div class="form-control">
                 <label for="title">Title</label>

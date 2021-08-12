@@ -99,11 +99,12 @@ exports.getEditPost = (req,res,next) => {
         res.render('edit-post', {
             pageTitle: 'Add post',
             path: '/edit-post',
+            errorMessage: '',
+            post: post,
             oldData: {
                 title: post.title,
                 text: post.text
-            },
-            post: post
+            }
         })
     })
 };
@@ -113,6 +114,21 @@ exports.postEditPost = (req,res,next) => {
     const title = req.body.title;
     const text = req.body.text;
     const id = req.body.postId;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {       
+        return res.status(422).render('edit-post', {
+          path: '/edit-post',
+          pageTitle: 'Edit post',
+          errorMessage: errors.array()[0].msg,
+          oldData: {
+            title, text
+          },
+          post: {
+              title, text
+          }
+        });
+    }
 
     Post.findOne({ _id: id })
     .then(post => {

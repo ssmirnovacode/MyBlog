@@ -6,26 +6,29 @@
    <%- include('./includes/navigation.ejs') %>
 
     <main>
+        <% if (errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
         <form class="login-form" action="/signup" method="POST" novalidate>
             <div class="form-control">
                 <label for="name">Name</label>
                 <input type="name" 
-                 name="name" id="name">
+                 name="name" id="name" value="<%= oldValues.name %>">
             </div>
             <div class="form-control">
                 <label for="email">E-Mail</label>
                 <input type="email" 
-                 name="email" id="email">
+                 name="email" id="email" value="<%= oldValues.email %>">
             </div>
             <div class="form-control">
                 <label for="password">Password</label>
                 <input type="password"
-                 name="password" id="password" >
+                 name="password" id="password" value="<%= oldValues.password %>" >
             </div>
             <div class="form-control">
                 <label for="confirmPassword">Confirm Password</label>
                 <input type="password" 
-                 name="confirmPassword" id="confirmPassword" >
+                 name="confirmPassword" id="confirmPassword" value="<%= oldValues.confirmPassword %>" >
             </div>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <button class="btn" type="submit">Signup</button>

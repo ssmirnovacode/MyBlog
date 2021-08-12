@@ -12,11 +12,13 @@
         <form class="post-form" action="/edit-post" method="POST">
             <div class="form-control">
                 <label for="title">Title</label>
-                <input type="text" name="title" id="title" value="<%= oldData.title %>" >
+                <input class="<%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %> "
+                     type="text" name="title" id="title" value="<%= oldData.title %>" >
             </div>
             <div class="form-control">
                 <label for="text">Content</label>
-                <textarea name="text" id="text" rows="5"><%= oldData.text %></textarea>
+                <textarea class="<%= validationErrors.find(e => e.param === 'text') ? 'invalid' : '' %> "
+                         name="text" id="text" rows="5"><%= oldData.text %></textarea>
             </div>
             <input type="hidden" value="<%= post._id %>" name="postId" >
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />

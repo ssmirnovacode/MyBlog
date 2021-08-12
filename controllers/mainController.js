@@ -38,6 +38,7 @@ exports.getAddPost = (req,res,next) => {
             title: '',
             text: ''
         },
+        validationErrors: []
     })
 };
 
@@ -55,7 +56,8 @@ exports.postAddPost = (req,res,next) => {
           errorMessage: errors.array()[0].msg,
           oldData: {
             title, text
-          }
+          },
+          validationErrors: errors.array()
         });
     }
 
@@ -104,7 +106,8 @@ exports.getEditPost = (req,res,next) => {
             oldData: {
                 title: post.title,
                 text: post.text
-            }
+            },
+            validationErrors: []
         })
     })
 };
@@ -126,7 +129,8 @@ exports.postEditPost = (req,res,next) => {
           },
           post: {
               title, text
-          }
+          },
+          validationErrors: errors.array()
         });
     }
 

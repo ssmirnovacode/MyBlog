@@ -13,7 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 
 const errorController = require('./controllers/errorController');
 
-const MONGODB_URI = 'mongodb+srv://svetlana:node-mongo21@cluster0.rkavg.mongodb.net/blog';
+const MONGODB_URI =  require('./config').mongo_uri;
 
 const csrfProtection = csrf();
 
@@ -31,7 +31,7 @@ const storage = new MongoDBStore({
 });
 
 app.use(session({ 
-    secret: 'mySecretIsSafe', 
+    secret: require('./config').session_secret, 
     resave: false, 
     saveUninitialized: false,
     store: storage
@@ -68,9 +68,11 @@ app.use((error, req, res, next) => {
     res.redirect('/500');
 })
 
-mongoose.connect(MONGODB_URI)
+const PORT = process.env.PORT || 3000;
+
+mongoose.connect(process.env.MONGODB_URI || MONGODB_URI)
 .then( () => {
     //console.log('server running');
-    app.listen(3000);
+    app.listen(PORT);
 })
 .catch(err => console.log(err));

@@ -1,2 +1,4 @@
 /node_modules
 punchlist.txt
+config.js
+.env

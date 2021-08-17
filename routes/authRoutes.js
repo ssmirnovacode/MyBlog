@@ -40,6 +40,10 @@ router.post('/logout', authController.postLogout);
 
 router.get('/profile', authController.getProfile);
 
-router.post('/edit-profile', authController.editProfile);
+router.post('/edit-profile', [
+    check('name', 'Name must have from 2 to 20 characters').isString().trim()
+            .isLength({ min: 2, max: 20 }),
+    check('email').trim().isEmail().withMessage('Invalid email. Please check your input')
+    ], authController.editProfile);
 
 module.exports = router;

@@ -9,6 +9,9 @@
         <% if (errorMessage) { %>
             <div class="user-message user-message--error"><%= errorMessage %></div>
         <% } %>
+        <% if (successMessage) { %>
+            <div class="user-message user-message--success"><%= successMessage %></div>
+        <% } %>
         <div class="container">
             <form class="login-form" action="/edit-profile" method="POST" novalidate>
                 <h3>Edit profile</h3>
@@ -29,7 +32,7 @@
                 </div>
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <button class="btn warning" type="submit">Update profile</button>
-                <a class="btn" href="/my-posts>">Cancel</a>
+                <a class="btn" href="/my-posts">Cancel</a>
             </form>
 
             <form class="login-form" action="/edit-password" method="POST" novalidate>
@@ -51,7 +54,7 @@
                 </div>
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <button class="btn warning" type="submit">Update password</button>
-                <a class="btn" href="/my-posts>">Cancel</a>
+                <a class="btn" href="/my-posts">Cancel</a>
             </form>
         </div>
     </main>

@@ -131,7 +131,8 @@ exports.getProfile = (req,res,next) => {
     res.render('profile', {
     path: '/profile',
     pageTitle: 'Profile',
-    errorMessage: '', 
+    errorMessage: '',
+    successMessage: '', 
     oldValues: {
       name: user.name, 
       email: user.email, 
@@ -156,6 +157,7 @@ exports.editProfile = (req,res,next) => {
           path: '/profile',
           pageTitle: 'Profile',
           errorMessage: errors.array()[0].msg,
+          successMessage: '',
           oldValues: {
             name, email, currentPassword: ''
           },
@@ -171,7 +173,8 @@ exports.editProfile = (req,res,next) => {
           res.status(422).render('profile', {
             path: '/profile',
             pageTitle: 'Profile',
-            errorMessage: 'Incorrect password', 
+            errorMessage: 'Incorrect password',
+            successMessage: '', 
             oldValues: {
               name: user.name, 
               email: user.email, 
@@ -188,7 +191,20 @@ exports.editProfile = (req,res,next) => {
           user.save()
           .then(() => {
             //enable success message
-            res.redirect('/my-posts')
+            res.status(200).render('profile', {
+              path: '/profile',
+              pageTitle: 'Profile',
+              errorMessage: '',
+              successMessage: 'Profile updated successfully', 
+              oldValues: {
+                name: user.name, 
+                email: user.email, 
+                currentPassword: '', 
+                password: '',
+                confirmPassword: ''
+              },
+              validationErrors: []
+            })
           })
           .catch(err => next(err))
         }

@@ -2,6 +2,16 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator/check');
 
+/* const renderWithErrMessage = (errors, res, view, path, pageTitle, oldValues) => {
+  return res.status(422).render(view, {
+    path,
+    pageTitle,
+    errorMessage: errors.array()[0].msg,
+    oldValues,
+    validationErrors: errors.array()
+  });
+} */
+
 exports.getSignup = (req,res,next) => {
     res.render('signup', {
         pageTitle: 'Sign up',
@@ -25,7 +35,7 @@ exports.postSignup = (req,res,next) => {
     const confirmPassword = req.body.confirmPassword;
 
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {       
+    if (!errors.isEmpty()) { 
         return res.status(422).render('signup', {
           path: '/signup',
           pageTitle: 'Sign up',

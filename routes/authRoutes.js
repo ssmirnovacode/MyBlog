@@ -20,7 +20,7 @@ router.post('/signup', [
                 })
                 .catch(err => console.log(err))
             }).withMessage('This email is already registered'),
-        check('imageUrl').trim().isURL().withMessage('Invalid URL. Please check your input'),
+        //check('imageUrl').trim().isURL().withMessage('Invalid URL. Please check your input'),
         check('password').isString().trim()
             .isLength({ min: 5, max: 20 }).withMessage('Password must have from 5 to 20 characters')
             .matches(/\d/).withMessage('Password must contain a number'),

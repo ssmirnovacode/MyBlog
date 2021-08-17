@@ -8,14 +8,20 @@
 
         <article class="card post-item">
             <header class="card__header">
-                <h3 class="post__title">
-                    <%= post.title %>
-                </h3>
-                <h4>by <%= post.author  %> </h4>
-                <h5>Created: <%= post.createdAt %></h5>
-                <% if (post.updatedAt) { %>
-                <h5>Updated: <%= post.updatedAt %></h5>
-                <% } %>
+                <div class="card__flex">
+                    <img src="<%= userImg  %>" alt="" class="card__userpic">
+                    <div>
+                        <h3 class="post__title">
+                            <%= post.title %>
+                        </h3>
+                        <h4>by <%= post.author  %> </h4>
+                        <h5>Created: <%= post.createdAt %></h5>
+                        <% if (post.updatedAt) { %>
+                        <h5>Updated: <%= post.updatedAt %></h5>
+                        <% } %>
+                    </div>
+                </div>
+                
             </header>
 
             <div class="card__content">

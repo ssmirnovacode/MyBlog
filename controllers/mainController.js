@@ -53,7 +53,7 @@ exports.getPostsByUserId = (req,res,next) => {
                 pageTitle: 'My posts',
                 path: '/my-posts',
                 posts: posts,
-                userImg: req.user.imageUrl || '../images/nofoto.jpg',
+                userImg: req.user.imageUrl || '/images/nofoto.jpg',
                 currentPage: page,
                 hasNextPage: ITEMS_PER_PAGE * page < totalItems,
                 hasPreviousPage: page > 1,
@@ -117,14 +117,19 @@ exports.getPostById = (req,res,next) => {
     .then(post => {
         const authorId = post.userId;
         const currentUser = req.session.user ? req.session.user._id.toString() : null;
-        
-        res.render('post-details', {
-            pageTitle: post.title,
-            path: `/posts/${post._id}`,
-            post: post,
-            viewedByAuthor: req.session.user ? authorId.toString() === currentUser.toString() : false
-        });
-        
+
+        User.findById(authorId)
+        .then(user => {
+            //console.log(user);
+            res.render('post-details', {
+                pageTitle: post.title,
+                path: `/posts/${post._id}`,
+                post: post,
+                userImg: user.imageUrl || '../images/nofoto.jpg',
+                viewedByAuthor: req.session.user ? authorId.toString() === currentUser.toString() : false
+            });
+        })
+        .catch(err => next(new Error(err))); 
     })
     .catch(err => next(new Error(err)));
 };

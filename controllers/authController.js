@@ -123,4 +123,27 @@ exports.postLogout = (req,res,next) => {
         console.log(err);
         res.redirect('/');
       });
+};
+
+exports.getProfile = (req,res,next) => {
+  User.findOne({ _id : req.user._id })
+  .then(user => {
+    res.render('profile', {
+    path: '/profile',
+    pageTitle: 'Profile',
+    errorMessage: '', 
+    oldValues: {
+      name: user.name, 
+      email: user.email, 
+      password: '', 
+      confirmPassword: ''
+    },
+    validationErrors: []
+    })
+  })
+  .catch(err => next(err));
+}
+
+exports.editProfile = (req,res,next) => {
+  
 }

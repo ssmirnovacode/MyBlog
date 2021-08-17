@@ -38,4 +38,8 @@ router.post('/login', [
 
 router.post('/logout', authController.postLogout);
 
+router.get('/profile', authController.getProfile);
+
+router.post('/edit-pofile', authController.editProfile);
+
 module.exports = router;

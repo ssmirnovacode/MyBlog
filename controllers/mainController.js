@@ -18,6 +18,7 @@ exports.getIndex = (req,res,next) => {
                 .limit(ITEMS_PER_PAGE)
         })
         .then(posts => {
+            //console.log(posts);
             res.render('index', {
                 pageTitle: 'Home',
                 path: '/',
@@ -52,6 +53,7 @@ exports.getPostsByUserId = (req,res,next) => {
                 pageTitle: 'My posts',
                 path: '/my-posts',
                 posts: posts,
+                userImg: req.user.imageUrl || '../images/nofoto.jpg',
                 currentPage: page,
                 hasNextPage: ITEMS_PER_PAGE * page < totalItems,
                 hasPreviousPage: page > 1,

@@ -6,6 +6,11 @@
   .card__content {
     padding: 1rem;
   }
+
+  .card__flex {
+    display: flex;
+    gap: 2rem;
+  }
   
   .card__header h1,
   .card__content h1,
@@ -47,4 +52,9 @@
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
+}
+
+.card__userpic {
+  max-width: 5rem;
+
 }

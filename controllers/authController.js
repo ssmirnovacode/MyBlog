@@ -260,22 +260,25 @@ exports.editPassword = (req,res,next) => {
             })
           }
           else {
-            user.password = password;
-            user.save()
-            .then(() => {
-              res.status(200).render('profile', {
-                path: '/profile',
-                pageTitle: 'Profile',
-                errorMessage: '',
-                successMessage: 'Password updated successfully', 
-                oldValues: {
-                  name: user.name, 
-                  email: user.email, 
-                  currentPassword: '', 
-                  password: '',
-                  confirmPassword: ''
-                },
-                validationErrors: []
+            bcrypt.hash(password, 12)
+            .then(hashedPassword => {
+              user.password = hashedPassword;
+              user.save()
+              .then(() => {
+                res.status(200).render('profile', {
+                  path: '/profile',
+                  pageTitle: 'Profile',
+                  errorMessage: '',
+                  successMessage: 'Password updated successfully', 
+                  oldValues: {
+                    name: user.name, 
+                    email: user.email, 
+                    currentPassword: '', 
+                    password: '',
+                    confirmPassword: ''
+                  },
+                  validationErrors: []
+                })
               })
             })
           }

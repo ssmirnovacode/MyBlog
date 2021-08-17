@@ -120,14 +120,14 @@ exports.getPostById = (req,res,next) => {
     Post.findOne({ _id: id })
     .populate('userId')
     .then(post => {
-        const authorId = post.userId;
-        const currentUser = req.session.user ? req.session.user._id.toString() : null;
+        const authorId = post.userId._id;
+        const currentUser = req.user ? req.user._id.toString() : null;
         res.render('post-details', {
             pageTitle: post.title,
             path: `/posts/${post._id}`,
             post: post,
             userImg: post.userId.imageUrl || '../images/nofoto.jpg',
-            viewedByAuthor: req.session.user ? authorId.toString() === currentUser.toString() : false
+            viewedByAuthor: req.user ? authorId.toString() === currentUser.toString() : false
         });
     })
     .catch(err => next(new Error(err)));

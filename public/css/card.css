@@ -10,6 +10,7 @@
   .card__flex {
     display: flex;
     gap: 2rem;
+    align-items: flex-start;
   }
   
   .card__header h1,
@@ -44,7 +45,7 @@
 }
 
 .post__title {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .post__description {
@@ -55,5 +56,16 @@
 }
 
 .card__userpic {
-  max-width: 7rem;
+  max-width: 5rem;
+}
+
+@media (min-width: 450px) {
+  .card__userpic {
+    max-width: 7rem;
+  }
+
+  .post__title {
+    font-size: 1.2rem;
+  }
+
 }

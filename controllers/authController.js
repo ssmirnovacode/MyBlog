@@ -20,6 +20,7 @@ exports.getSignup = (req,res,next) => {
 exports.postSignup = (req,res,next) => {
     const name = req.body.name;
     const email = req.body.email;
+    const imageUrl = req.body.imageUrl;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
 
@@ -30,14 +31,14 @@ exports.postSignup = (req,res,next) => {
           pageTitle: 'Sign up',
           errorMessage: errors.array()[0].msg,
           oldValues: {
-            name, email, password, confirmPassword
+            name, email, imageUrl, password, confirmPassword
           },
           validationErrors: errors.array()
         });
       }
     bcrypt.hash(password, 12)
     .then(hashedPassword => {
-        const user = new User({ name, email, password: hashedPassword });
+        const user = new User({ name, email, imageUrl, password: hashedPassword });
         return user.save()
     })
     .then(() => res.redirect('/login'))
@@ -136,6 +137,7 @@ exports.getProfile = (req,res,next) => {
     oldValues: {
       name: user.name, 
       email: user.email, 
+      imageUrl: user.imageUrl,
       currentPassword: '', 
       password: '',
       confirmPassword: ''
@@ -149,6 +151,7 @@ exports.getProfile = (req,res,next) => {
 exports.editProfile = (req,res,next) => {
   const name = req.body.name;
   const email = req.body.email;
+  const imageUrl = req.body.imageUrl;
   const currentPassword = req.body.currentPassword;
 
   const errors = validationResult(req);
@@ -159,7 +162,8 @@ exports.editProfile = (req,res,next) => {
           errorMessage: errors.array()[0].msg,
           successMessage: '',
           oldValues: {
-            name, email, currentPassword: '', 
+            name, email, 
+            imageUrl, currentPassword: '', 
             password: '',
             confirmPassword: ''
           },
@@ -178,8 +182,9 @@ exports.editProfile = (req,res,next) => {
             errorMessage: 'Incorrect password',
             successMessage: '', 
             oldValues: {
-              name: name, 
-              email: email, 
+              name, 
+              email, 
+              imageUrl,
               currentPassword: '', 
               password: '',
               confirmPassword: ''
@@ -190,6 +195,7 @@ exports.editProfile = (req,res,next) => {
         else {
           user.name = name;
           user.email = email;
+          user.imageUrl = imageUrl;
           user.save()
           .then(() => {
             res.status(200).render('profile', {
@@ -200,6 +206,7 @@ exports.editProfile = (req,res,next) => {
               oldValues: {
                 name: user.name, 
                 email: user.email, 
+                imageUrl: user.imageUrl,
                 currentPassword: '', 
                 password: '',
                 confirmPassword: ''
@@ -221,8 +228,7 @@ exports.editPassword = (req,res,next) => {
   const confirmPassword = req.body.confirmPassword;
 
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {   
-    console.log(errors.array());    
+  if (!errors.isEmpty()) {      
       return res.status(422).render('profile', {
         path: '/profile',
         pageTitle: 'Profile',

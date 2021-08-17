@@ -26,6 +26,14 @@
                      name="email" id="email" value="<%= oldValues.email %>">
                 </div>
                 <div class="form-control">
+                    <label for="imageUrl">User avatar (image URL)</label>
+                    <input type="imageUrl"  class="<%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : '' %> "
+                     name="imageUrl" id="imageUrl" value="<%= oldValues.imageUrl %>">
+                </div>
+                <div class="userpic">
+                    <img class="userpic-img" src="<%= oldValues.imageUrl ? oldValues.imageUrl : '../images/nofoto.jpg' %>" alt="%= oldValues.name %> user image">
+                </div>
+                <div class="form-control">
                     <label for="currentPassword">Enter your password</label>
                     <input type="password" class="<%= validationErrors.find(e => e.param === 'currentPassword') ? 'invalid' : '' %> "
                      name="currentPassword" id="currentPassword" value="<%= oldValues.currentPassword %>" >

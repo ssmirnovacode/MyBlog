@@ -41,4 +41,13 @@
   display: block;
 }
 
+.userpic {
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.userpic-img {
+  max-width: 10rem;
+}
 

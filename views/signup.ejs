@@ -21,6 +21,11 @@
                  name="email" id="email" value="<%= oldValues.email %>">
             </div>
             <div class="form-control">
+                <label for="imageUrl">User avatar (image URL)</label>
+                <input type="imageUrl"  class="<%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : '' %> "
+                 name="imageUrl" id="imageUrl" value="<%= oldValues.imageUrl %>">
+            </div>
+            <div class="form-control">
                 <label for="password">Password</label>
                 <input type="password" class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %> "
                  name="password" id="password" value="<%= oldValues.password %>" >

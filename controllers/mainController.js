@@ -14,9 +14,13 @@ exports.getIndex = (req,res,next) => {
         .then(number => {
             totalItems = number;
             return Post.find()
+                .populate('userId')
                 .skip((page - 1) * ITEMS_PER_PAGE)
                 .limit(ITEMS_PER_PAGE)
         })
+        /* .then(posts => {
+
+        }) */
         .then(posts => {
             //console.log(posts);
             res.render('index', {
@@ -44,7 +48,7 @@ exports.getPostsByUserId = (req,res,next) => {
         .countDocuments()
         .then(number => {
             totalItems = number;
-            return Post.find()
+            return Post.find({ userId: userId })
                 .skip((page - 1) * ITEMS_PER_PAGE)
                 .limit(ITEMS_PER_PAGE)
         })

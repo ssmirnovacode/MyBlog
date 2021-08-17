@@ -12,14 +12,15 @@
             <% posts.map(p => { %>
 
                 <article class="card post-item">
-                    <header class="card__header">
-                        <h3 class="post__title">
-                            <%= p.title %>
-                        </h3>
-                        <h4>by <%= p.author  %> </h4>
-                        <h5><%= p.createdAt %></h5>
-                        
-
+                    <header class="card__header card__flex">
+                        <img src="<%= p.userId.imageUrl || '../images/nofoto.jpg'  %>" alt="" class="card__userpic">
+                        <div>
+                            <h3 class="post__title">
+                                <%= p.title %>
+                            </h3>
+                            <h4>by <%= p.author  %> </h4>
+                            <h5><%= p.createdAt %></h5>
+                        </div>
                     </header>
 
                     <div class="card__content">

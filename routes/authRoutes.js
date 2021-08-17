@@ -60,8 +60,8 @@ router.post('/edit-profile', [
 
 router.post('/edit-password', [
     check('password').isString().trim()
-    .isLength({ min: 5, max: 20 }).withMessage('Password must have from 5 to 20 characters')
-    .matches(/\d/).withMessage('Password must contain a number'),
+        .isLength({ min: 5, max: 20 }).withMessage('Password must have from 5 to 20 characters')
+        .matches(/\d/).withMessage('Password must contain a number'),
     check('confirmPassword').trim().custom((value, {req}) => {
         if (req.body.password !== value) {
             return Promise.reject();

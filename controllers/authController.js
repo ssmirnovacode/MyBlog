@@ -221,23 +221,28 @@ exports.editPassword = (req,res,next) => {
   const confirmPassword = req.body.confirmPassword;
 
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {       
+  if (!errors.isEmpty()) {   
+    console.log(errors.array());    
       return res.status(422).render('profile', {
         path: '/profile',
         pageTitle: 'Profile',
         errorMessage: errors.array()[0].msg,
+        successMessage: '',
         oldValues: {
-          currentPassword, password, confirmPassword
+          name: req.user.name,
+          email: req.user.email,
+          currentPassword: '', 
+          password: '',
+          confirmPassword: ''
         },
         validationErrors: errors.array()
       });
-    }
+  }
 
   User.findOne({ _id: req.user._id })
     .then(user => {
       bcrypt.compare(currentPassword, user.password)
         .then(isMatch => {
-          console.log(isMatch);
           if (!isMatch) {
             res.status(422).render('profile', {
               path: '/profile',
@@ -248,8 +253,8 @@ exports.editPassword = (req,res,next) => {
                 name: user.name, 
                 email: user.email, 
                 currentPassword: '', 
-                password: '',
-                confirmPassword: ''
+                password,
+                confirmPassword
               },
               validationErrors: []
             })

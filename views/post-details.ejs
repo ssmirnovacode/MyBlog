@@ -15,9 +15,9 @@
                             <%= post.title %>
                         </h3>
                         <h4>by <%= post.author  %> </h4>
-                        <h5>Created: <%= post.createdAt %></h5>
+                        <h5>Created: <%= post.createdAt.toISOString().slice(0,-5).split('T').join(' at ') %></h5>
                         <% if (post.updatedAt) { %>
-                        <h5>Updated: <%= post.updatedAt %></h5>
+                        <h5>Updated: <%= post.updatedAt.toISOString().slice(0,-5).split('T').join(' at ') %></h5>
                         <% } %>
                     </div>
                 

@@ -19,7 +19,7 @@
                                 <%= p.title %>
                             </h3>
                             <h4>by <%= p.author  %> </h4>
-                            <h5><%= p.createdAt %></h5>
+                            <h5>Created <%= p.createdAt.toISOString().slice(0,-5).split('T').join(' at ') %></h5>
                         </div>
                     </header>
 

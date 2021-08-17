@@ -118,22 +118,17 @@ exports.getPostById = (req,res,next) => {
     const id = req.params.postId;
 
     Post.findOne({ _id: id })
+    .populate('userId')
     .then(post => {
         const authorId = post.userId;
         const currentUser = req.session.user ? req.session.user._id.toString() : null;
-
-        User.findById(authorId)
-        .then(user => {
-            //console.log(user);
-            res.render('post-details', {
-                pageTitle: post.title,
-                path: `/posts/${post._id}`,
-                post: post,
-                userImg: user.imageUrl || '../images/nofoto.jpg',
-                viewedByAuthor: req.session.user ? authorId.toString() === currentUser.toString() : false
-            });
-        })
-        .catch(err => next(new Error(err))); 
+        res.render('post-details', {
+            pageTitle: post.title,
+            path: `/posts/${post._id}`,
+            post: post,
+            userImg: post.userId.imageUrl || '../images/nofoto.jpg',
+            viewedByAuthor: req.session.user ? authorId.toString() === currentUser.toString() : false
+        });
     })
     .catch(err => next(new Error(err)));
 };

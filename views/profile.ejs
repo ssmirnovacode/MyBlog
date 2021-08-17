@@ -6,8 +6,12 @@
    <%- include('./includes/navigation.ejs') %>
 
     <main>
+        <% if (errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
         <div class="container">
             <form class="login-form" action="/edit-profile" method="POST" novalidate>
+                <h3>Edit profile</h3>
                 <div class="form-control">
                     <label for="name">Name</label>
                     <input type="name"  class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %> "
@@ -19,7 +23,24 @@
                      name="email" id="email" value="<%= oldValues.email %>">
                 </div>
                 <div class="form-control">
-                    <label for="password">Password</label>
+                    <label for="currentPassword">Enter your password</label>
+                    <input type="password" class="<%= validationErrors.find(e => e.param === 'currentPassword') ? 'invalid' : '' %> "
+                     name="currentPassword" id="currentPassword" value="<%= oldValues.currentPassword %>" >
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button class="btn warning" type="submit">Update profile</button>
+                <a class="btn" href="/my-posts>">Cancel</a>
+            </form>
+
+            <form class="login-form" action="/edit-password" method="POST" novalidate>
+                <h3>Change password</h3>
+                <div class="form-control">
+                    <label for="currentPassword">Current password</label>
+                    <input type="password" class="<%= validationErrors.find(e => e.param === 'currentPassword') ? 'invalid' : '' %> "
+                     name="currentPassword" id="currentPassword" value="<%= oldValues.currentPassword %>" >
+                </div>
+                <div class="form-control">
+                    <label for="password">New password</label>
                     <input type="password" class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %> "
                      name="password" id="password" value="<%= oldValues.password %>" >
                 </div>
@@ -29,7 +50,8 @@
                      name="confirmPassword" id="confirmPassword" value="<%= oldValues.confirmPassword %>" >
                 </div>
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                <button class="btn" type="submit">Signup</button>
+                <button class="btn warning" type="submit">Update password</button>
+                <a class="btn" href="/my-posts>">Cancel</a>
             </form>
         </div>
     </main>

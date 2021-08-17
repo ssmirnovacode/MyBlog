@@ -40,6 +40,6 @@ router.post('/logout', authController.postLogout);
 
 router.get('/profile', authController.getProfile);
 
-router.post('/edit-pofile', authController.editProfile);
+router.post('/edit-profile', authController.editProfile);
 
 module.exports = router;

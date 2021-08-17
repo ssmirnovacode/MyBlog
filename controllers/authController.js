@@ -135,7 +135,8 @@ exports.getProfile = (req,res,next) => {
     oldValues: {
       name: user.name, 
       email: user.email, 
-      password: '', 
+      currentPassword: '', 
+      password: '',
       confirmPassword: ''
     },
     validationErrors: []
@@ -145,5 +146,55 @@ exports.getProfile = (req,res,next) => {
 }
 
 exports.editProfile = (req,res,next) => {
-  
+  const name = req.body.name;
+  const email = req.body.email;
+  const currentPassword = req.body.currentPassword;
+
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {       
+        return res.status(422).render('profile', {
+          path: '/profile',
+          pageTitle: 'Profile',
+          errorMessage: errors.array()[0].msg,
+          oldValues: {
+            name, email, currentPassword: ''
+          },
+          validationErrors: errors.array()
+        });
+      }
+
+  User.findOne({ _id: req.user._id })
+  .then(user => {
+    bcrypt.compare(currentPassword, user.password)
+      .then(isMatch => {
+        if (!isMatch) {
+          res.status(422).render('profile', {
+            path: '/profile',
+            pageTitle: 'Profile',
+            errorMessage: 'Incorrect password', 
+            oldValues: {
+              name: user.name, 
+              email: user.email, 
+              currentPassword: '', 
+              password: '',
+              confirmPassword: ''
+            },
+            validationErrors: []
+          })
+        }
+        else {
+          user.name = name;
+          user.email = email;
+          user.save()
+          .then(() => {
+            //enable success message
+            res.redirect('/my-posts')
+          })
+          .catch(err => next(err))
+        }
+      })
+      .catch(err => next(err))
+  })
+  .catch(err => next(err))
+
 }

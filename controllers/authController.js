@@ -40,7 +40,7 @@ exports.postSignup = (req,res,next) => {
         const user = new User({ name, email, password: hashedPassword });
         return user.save()
     })
-    .then(() => res.redirect('/'))
+    .then(() => res.redirect('/login'))
     .catch(err => next(new Error(err)));
 };
 
@@ -159,7 +159,9 @@ exports.editProfile = (req,res,next) => {
           errorMessage: errors.array()[0].msg,
           successMessage: '',
           oldValues: {
-            name, email, currentPassword: ''
+            name, email, currentPassword: '', 
+            password: '',
+            confirmPassword: ''
           },
           validationErrors: errors.array()
         });
@@ -176,8 +178,8 @@ exports.editProfile = (req,res,next) => {
             errorMessage: 'Incorrect password',
             successMessage: '', 
             oldValues: {
-              name: user.name, 
-              email: user.email, 
+              name: name, 
+              email: email, 
               currentPassword: '', 
               password: '',
               confirmPassword: ''
@@ -190,7 +192,6 @@ exports.editProfile = (req,res,next) => {
           user.email = email;
           user.save()
           .then(() => {
-            //enable success message
             res.status(200).render('profile', {
               path: '/profile',
               pageTitle: 'Profile',
@@ -212,5 +213,69 @@ exports.editProfile = (req,res,next) => {
       .catch(err => next(err))
   })
   .catch(err => next(err))
+};
 
+exports.editPassword = (req,res,next) => {
+  const currentPassword = req.body.currentPassword;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {       
+      return res.status(422).render('profile', {
+        path: '/profile',
+        pageTitle: 'Profile',
+        errorMessage: errors.array()[0].msg,
+        oldValues: {
+          currentPassword, password, confirmPassword
+        },
+        validationErrors: errors.array()
+      });
+    }
+
+  User.findOne({ _id: req.user._id })
+    .then(user => {
+      bcrypt.compare(currentPassword, user.password)
+        .then(isMatch => {
+          console.log(isMatch);
+          if (!isMatch) {
+            res.status(422).render('profile', {
+              path: '/profile',
+              pageTitle: 'Profile',
+              errorMessage: 'Incorrect password',
+              successMessage: '', 
+              oldValues: {
+                name: user.name, 
+                email: user.email, 
+                currentPassword: '', 
+                password: '',
+                confirmPassword: ''
+              },
+              validationErrors: []
+            })
+          }
+          else {
+            user.password = password;
+            user.save()
+            .then(() => {
+              res.status(200).render('profile', {
+                path: '/profile',
+                pageTitle: 'Profile',
+                errorMessage: '',
+                successMessage: 'Password updated successfully', 
+                oldValues: {
+                  name: user.name, 
+                  email: user.email, 
+                  currentPassword: '', 
+                  password: '',
+                  confirmPassword: ''
+                },
+                validationErrors: []
+              })
+            })
+          }
+        })
+        .catch(err => next(err))
+    })
+    .catch(err => next(err))
 }

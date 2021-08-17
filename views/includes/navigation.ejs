@@ -1,6 +1,6 @@
-
+<div class="backdrop"></div>
 <header class="main-header">
-    
+    <button id="side-menu-toggle">Menu</button>
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
             <li class="main-header__item">
@@ -38,4 +38,36 @@
         </ul>
     </nav>
 </header>
+
+<nav class="mobile-nav">
+    <ul class="mobile-nav__item-list">
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
+        </li>
+        <% if (isAuthenticated) { %>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/my-posts' ? 'active' : '' %>" href="/my-posts">My posts</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/add-posr' ? 'active' : '' %>" href="/add-post">Add post</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/profile' ? 'active' : '' %>" href="/profile">Profile</a>
+        </li>
+        <li class="mobile-nav__item">
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button type="submit">Logout</button>
+            </form>
+        </li>
+        <% } else { %>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
+        </li>
+        <% } %>       
+    </ul>
+</nav>
 

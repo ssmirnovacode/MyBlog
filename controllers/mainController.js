@@ -3,27 +3,61 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const { validationResult } = require('express-validator/check');
 
+const ITEMS_PER_PAGE = 4; 
+
 exports.getIndex = (req,res,next) => {
+    const page = +req.query.page || 1;
+    let totalItems;
+
     Post.find()
+        .countDocuments()
+        .then(number => {
+            totalItems = number;
+            return Post.find()
+                .skip((page - 1) * ITEMS_PER_PAGE)
+                .limit(ITEMS_PER_PAGE)
+        })
         .then(posts => {
             res.render('index', {
                 pageTitle: 'Home',
                 path: '/',
-                posts: posts
+                posts: posts,
+                currentPage: page,
+                hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+                hasPreviousPage: page > 1,
+                nextPage: page + 1,
+                previousPage: page - 1,
+                lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
             })
         })
         .catch(err => next(new Error(err)));
 };
 
 exports.getPostsByUserId = (req,res,next) => {
+    const page = +req.query.page || 1;
+    let totalItems;
+
     const userId = req.user._id;
 
     Post.find({ userId: userId })
+        .countDocuments()
+        .then(number => {
+            totalItems = number;
+            return Post.find()
+                .skip((page - 1) * ITEMS_PER_PAGE)
+                .limit(ITEMS_PER_PAGE)
+        })
         .then(posts => {
             res.render('my-posts', {
                 pageTitle: 'My posts',
                 path: '/my-posts',
-                posts: posts
+                posts: posts,
+                currentPage: page,
+                hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+                hasPreviousPage: page > 1,
+                nextPage: page + 1,
+                previousPage: page - 1,
+                lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
             })
         })
         .catch(err => next(new Error(err)));

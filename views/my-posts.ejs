@@ -38,5 +38,6 @@
                 <div> No posts found for this user</div>
             <% }  %>
             </div>
+        <%- include('./includes/pagination.ejs', {currentPage: currentPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
     </main>
 <%- include('./includes/end.ejs') %>

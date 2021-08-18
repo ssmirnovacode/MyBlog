@@ -111,8 +111,11 @@ body {
 
 #side-menu-toggle {
   border: 1px solid white;
+  border-radius: 5px;
+  width: 2.5rem;
   font: inherit;
-  padding: 0.5rem;
+  font-size: 2rem;
+  /* padding: 0.5rem; */
   display: block;
   background: transparent;
   color: white;
@@ -228,6 +231,16 @@ body {
     background: #00695c;
     color: white;
   }
+
+.profile-icon {
+  font-size: 1.5rem;
+  margin-right: .7rem;
+}
+
+.icon__group {
+  display: flex;
+  align-items:center;
+}
 
   @media (min-width: 600px) {
     .main-header__nav {

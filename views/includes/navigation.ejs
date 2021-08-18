@@ -1,6 +1,6 @@
 <div class="backdrop"></div>
 <header class="main-header">
-    <button id="side-menu-toggle">Menu</button>
+    <button id="side-menu-toggle">&#8801;</button>
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
             <li class="main-header__item">
@@ -18,19 +18,19 @@
         <ul class="main-header__item-list">
             <% if (!isAuthenticated) { %>
             <li class="main-header__item">
-                <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+                <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"><div class="icon__group"><i class="fa fa-sign-in profile-icon" aria-hidden="true"></i><div>Login</div></div></a>
             </li>
             <li class="main-header__item">
                 <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
             </li>
             <% } else { %>
             <li class="main-header__item">
-                <a class="<%= path === '/profile' ? 'active' : '' %>" href="/profile">Profile</a>
+                <a class="<%= path === '/profile' ? 'active' : '' %>" href="/profile"><div class="icon__group"><i class="fa fa-user profile-icon" aria-hidden="true"></i><div>Profile</div></div></a>
             </li>
             <li class="main-header__item">
                 <form action="/logout" method="post">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                    <button type="submit">Logout</button>
+                    <button type="submit"><div class="icon__group"><i class="fa fa-sign-out profile-icon" aria-hidden="true"></i><div>Logout</div></div></button>
                 </form>
             </li>
             <% } %>

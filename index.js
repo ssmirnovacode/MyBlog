@@ -13,7 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 
 const errorController = require('./controllers/errorController');
 
-const MONGODB_URI =  process.env.MONGO_URI;
+const MONGODB_URI =  process.env.MONGODB_URI;
 
 const csrfProtection = csrf();
 

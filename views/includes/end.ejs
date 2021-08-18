@@ -1,4 +1,46 @@
 <script src="/js/main.js"></script>
+<footer class="footer">
+    <ul class="footer-links">
+
+        <li class="footer-nav__item">
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
+        </li>
+        <% if (isAuthenticated) { %>
+        <li class="footer-nav__item">
+            <a class="<%= path === '/my-posts' ? 'active' : '' %>" href="/my-posts">My posts</a>
+        </li>
+        <li class="footer-nav__item">
+            <a class="<%= path === '/add-posr' ? 'active' : '' %>" href="/add-post">Add post</a>
+        </li>
+        <li class="footer-nav__item">
+            <a class="<%= path === '/profile' ? 'active' : '' %>" href="/profile">Profile</a>
+        </li>
+        <li class="footer-nav__item">
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button class="footer__logout" type="submit">Logout</button>
+            </form>
+        </li>
+        <% } else { %>
+        <li class="footer-nav__item">
+            <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+        </li>
+        <li class="footer-nav__item">
+            <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
+        </li>
+        <% } %> 
+
+    </ul>
+
+    <div >
+        <div >Find us on social media:</div>
+        <div class="footer-social">
+            <a class="" href="https://github.com/ssmirnovacode/my-hotel" target="blank"><i class="fa fa-facebook-square footer__icon"></i></a>
+            <a class="" href="https://github.com/ssmirnovacode/my-hotel" target="blank"><i class="fa fa-linkedin-square footer__icon"></i></a>
+            <a class="" href="https://github.com/ssmirnovacode/my-hotel" target="blank"><i class="fa fa-github-square footer__icon"></i></a>
+        </div>
+    </div>
+</footer>
 </body>
 
 </html>

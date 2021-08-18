@@ -13,7 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 
 const errorController = require('./controllers/errorController');
 
-//const MONGODB_URI =  require('./config').mongo_uri;
+const MONGODB_URI =  process.env.MONGO_URI;
 
 const csrfProtection = csrf();
 
@@ -26,12 +26,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const storage = new MongoDBStore({
-    uri: process.env.MONGODB_URI, //MONGODB_URI
+    uri: MONGODB_URI, 
     collection: 'sessions'
 });
 
 app.use(session({ 
-    secret: 'mySecretIsSafe', //require('./config').session_secret, 
+    secret: 'mySecretIsSafe',  
     resave: false, 
     saveUninitialized: false,
     store: storage
@@ -68,11 +68,11 @@ app.use((error, req, res, next) => {
     res.redirect('/500');
 })
 
-//const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect(process.env.MONGODB_URI /* || MONGODB_URI */)
+mongoose.connect(MONGODB_URI)
 .then( () => {
     //console.log('server running');
-    app.listen(process.env.PORT);
+    app.listen(PORT);
 })
 .catch(err => console.log(err));

@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
+const compression = require('compression');
 
 const User = require('./models/User');
 
@@ -22,6 +23,8 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+app.use(compression());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -38,6 +41,7 @@ app.use(session({
 }));
 
 app.use(csrfProtection);
+
 //setting up data for every view to be rendered:
 app.use((req,res,next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;

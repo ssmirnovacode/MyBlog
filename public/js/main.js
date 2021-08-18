@@ -16,7 +16,9 @@ function menuToggleClickHandler() {
 backdrop.addEventListener('click', backdropClickHandler);
 menuToggle.addEventListener('click', menuToggleClickHandler);
 
-scrollBtn.addEventListener('click', () => {
-  window.scrollTo(0, 0);
-  console.log('click')
-});
+try {
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo(0, 0);
+  });
+}
+catch(err){}

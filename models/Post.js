@@ -25,7 +25,16 @@ const postSchema = new Schema({
     },
     updatedAt: {
         type: Date
-    }
+    },
+    comments: [
+        {
+            commentId: {
+                type: Schema.Types.ObjectId,
+                required: true,
+                ref: 'Comment'
+            }
+        }
+    ]
 });
 
 module.exports = mongoose.model('Post', postSchema);

@@ -68,11 +68,11 @@ app.use((error, req, res, next) => {
     res.redirect('/500');
 })
 
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGODB_URI /* || MONGODB_URI */)
 .then( () => {
     //console.log('server running');
-    app.listen(PORT);
+    app.listen(process.env.PORT);
 })
 .catch(err => console.log(err));

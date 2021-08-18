@@ -59,6 +59,10 @@
   max-width: 5rem;
 }
 
+.card__comments-list {
+  list-style-type: none;
+}
+
 @media (min-width: 450px) {
   .card__userpic {
     max-width: 7rem;

@@ -1,5 +1,6 @@
 <%- include('./includes/head.ejs') %>
 <link rel="stylesheet" href="/css/card.css">
+<link rel="stylesheet" href="/css/forms.css">
 </head>
 
 <body>
@@ -8,7 +9,6 @@
 
         <article class="card post-item">
             <header class="card__header card__flex">
-                
                     <img src="<%= userImg  %>" alt="" class="card__userpic">
                     <div>
                         <h3 class="post__title">
@@ -20,18 +20,14 @@
                         <h5>Updated: <%= post.updatedAt.toISOString().slice(0,-5).split('T').join(' at ') %></h5>
                         <% } %>
                     </div>
-                
-                
             </header>
 
             <div class="card__content">
-
                 <p >
                     <%= post.text %>
                 </p>
             </div>
             <div class="card__actions">
-                
                 <% if (isAuthenticated && viewedByAuthor) { %>
                 <a href="/edit-post/<%= post._id %>" class="btn warning">Edit</a>
                 <form action="/delete-post" method="POST">
@@ -40,6 +36,41 @@
                     <button class="btn danger" type="submit">Delete</button>
                 </form>
                 <% } %>
+            </div>
+
+            <div class="card__comments container">
+                <h3>Comments</h3><hr>
+                <% if (isAuthenticated) { %>
+                <form class="post-form" action="/add-comment" method="POST">
+                    <div class="form-control">
+                        <label for="text">Your comment</label>
+                        <textarea class="<%=  %> " 
+                                name="text" id="text" rows="5"><%=  %></textarea>
+                    </div>
+                    <!-- <input type="hidden" name="_csrf" value="<%= csrfToken %>" /> -->
+                    <button class="btn" type="submit">Publish</button>
+                </form>
+                <% } %>
+                <div class="card__comments-list">
+                    <!-- <li class="card__comments-list__item"> -->
+                        <article class="card post-item">
+                            <header class="card__header card__flex">
+                                <img src="userpic" alt="" class="card__userpic">
+                                <div>
+                                    <h4>by Unknown <%=   %> </h4>
+                                    <h5>Created 18.08.2021 <%=  %></h5>
+                                </div>
+                            </header>
+        
+                            <div class="card__content">
+        
+                                <p class="post__description">
+                                    <%=  %> what a shitty post!!!!
+                                </p>
+                            </div>
+                        </article>
+                    <!-- </li> -->
+                </div>
             </div>
         </article>
 

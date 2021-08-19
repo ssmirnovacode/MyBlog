@@ -15,6 +15,7 @@ exports.getIndex = (req,res,next) => {
         .then(number => {
             totalItems = number;
             return Post.find()
+                .sort({ createdAt: -1 })
                 .populate('userId')
                 .skip((page - 1) * ITEMS_PER_PAGE)
                 .limit(ITEMS_PER_PAGE)
@@ -50,6 +51,7 @@ exports.getPostsByUserId = (req,res,next) => {
         .then(number => {
             totalItems = number;
             return Post.find({ userId: userId })
+                .sort({ createdAt: -1 })
                 .skip((page - 1) * ITEMS_PER_PAGE)
                 .limit(ITEMS_PER_PAGE)
         })
@@ -120,6 +122,7 @@ exports.getPostById = (req,res,next) => {
     let postComments;
 
     Comment.find({ postId: id })
+    .sort({ createdAt: -1 })
     .populate('userId')
     .then(comments => {
         postComments = comments;

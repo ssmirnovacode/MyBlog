@@ -13,7 +13,7 @@ body {
 }
 
 .container {
-    margin: 1rem;
+    margin: 1rem 1rem 2rem 1rem;
 }
 
 main, .main {
@@ -156,6 +156,14 @@ main, .main {
   border-color: #ffeb3b;
 }
 
+.mobile-logo {
+  display: block;
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: white;
+  margin: 0 0 0 auto;
+}
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -247,6 +255,7 @@ main, .main {
     padding: 0.5rem;
     border: 1px solid #00695c;
     margin: 0 1rem;
+    border-radius: 5px;
   }
   
   .pagination a:hover,
@@ -317,6 +326,10 @@ main, .main {
 }
 
 @media (min-width: 600px) {
+
+  .mobile-logo {
+    display: none;
+  }
 
   .container {
     margin: 2rem;

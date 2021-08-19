@@ -13,11 +13,18 @@
     align-items: flex-start;
   }
   
-  .card__header h1,
+  .card__header h3,
+  .card__header h4,
+  .card__header h5,
   .card__content h1,
   .card__content h2,
   .card__content p {
     margin: 0;
+  }
+
+  .card__header h3,
+  .card__header h4 {
+    margin-bottom: 0.7rem;
   }
   
   .card__actions {
@@ -46,6 +53,7 @@
 
 .post__title {
     font-size: 1rem;
+    margin-bottom: 0;
 }
 
 .post__description {
@@ -73,7 +81,7 @@
 }
 
 .card__comments-list h4 {
-  margin: 0.5rem 0 0 0;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
 .card__comments-list .card__userpic {

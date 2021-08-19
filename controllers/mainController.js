@@ -117,10 +117,17 @@ exports.postAddPost = (req,res,next) => {
 
 exports.getPostById = (req,res,next) => {
     const id = req.params.postId;
+    let postComments;
 
-    Post.findOne({ _id: id })
+    Comment.find({ postId: id })
     .populate('userId')
+    .then(comments => {
+        postComments = comments;
+        return Post.findOne({ _id: id })
+            .populate('userId')
+    })
     .then(post => {
+        //console.log(post.comments);
         const authorId = post.userId._id;
         const currentUser = req.user ? req.user._id.toString() : null;
         res.render('post-details', {
@@ -128,10 +135,15 @@ exports.getPostById = (req,res,next) => {
             path: `/posts/${post._id}`,
             post: post,
             userImg: post.userId.imageUrl || '../images/nofoto.jpg',
-            viewedByAuthor: req.user ? authorId.toString() === currentUser.toString() : false
+            viewedByAuthor: req.user ? authorId.toString() === currentUser.toString() : false,
+            comments: postComments
         });
     })
     .catch(err => next(new Error(err)));
+    /* Post.findOne({ _id: id })
+    .populate('userId')
+    .populate('comments.commentId') */
+    
 };
 
 exports.getEditPost = (req,res,next) => {

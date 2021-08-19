@@ -51,24 +51,24 @@
                 </form>
                 <% } %>
                 <div class="card__comments-list">
-                    <!-- <li class="card__comments-list__item"> -->
+                    <% comments.forEach(com => { %>
                         <article class="card post-item">
                             <header class="card__header card__flex">
                                 <img src="userpic" alt="" class="card__userpic">
                                 <div>
-                                    <h4>by Unknown <%=   %> </h4>
-                                    <h5>Created 18.08.2021 <%=  %></h5>
+                                    <h4>by <%= com.userId.name  %> </h4>
+                                    <h5>Created <%= com.createdAt.toISOString().slice(0,-5).split('T').join(' at ') %></h5>
                                 </div>
                             </header>
         
                             <div class="card__content">
         
                                 <p class="post__description">
-                                    <%=  %> what a shitty post!!!!
+                                    <%= com.comment  %> 
                                 </p>
                             </div>
                         </article>
-                    <!-- </li> -->
+                    <% }) %>
                 </div>
             </div>
         </article>

@@ -22,6 +22,10 @@
                                         if (item.indexOf('-') > 0) {
                                           item = item.split('-').reverse().join('-');
                                         }
+                                        else {
+                                            const hours = +item.slice(0,2) + 2; //real time
+                                            item = hours.toString() + item.slice(2)
+                                          }
                                         return item;
                                       }).join(' at ')  %></h5>
                                     <% if (p.updatedAt) { %>
@@ -29,6 +33,10 @@
                                         if (item.indexOf('-') > 0) {
                                           item = item.split('-').reverse().join('-');
                                         }
+                                        else {
+                                            const hours = +item.slice(0,2) + 2; //real time
+                                            item = hours.toString() + item.slice(2)
+                                          }
                                         return item;
                                       }).join(' at ')  %></h5>
                                     <% } %>

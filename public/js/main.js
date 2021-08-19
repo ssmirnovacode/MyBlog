@@ -34,6 +34,10 @@ const res = str.slice(0,-5).split('T').map(item => {
   if (item.indexOf('-') > 0) {
     item = item.split('-').reverse().join('-');
   }
+  else {
+    const hours = +item.slice(0,2) + 2; //real time
+    item = hours.toString() + item.slice(2)
+  }
   return item;
 }).join(' at ');
 console.log(res);

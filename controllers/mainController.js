@@ -127,7 +127,6 @@ exports.getPostById = (req,res,next) => {
             .populate('userId')
     })
     .then(post => {
-        //console.log(post.comments);
         const authorId = post.userId._id;
         const currentUser = req.user ? req.user._id.toString() : null;
         res.render('post-details', {
@@ -140,10 +139,6 @@ exports.getPostById = (req,res,next) => {
         });
     })
     .catch(err => next(err));
-    /* Post.findOne({ _id: id })
-    .populate('userId')
-    .populate('comments.commentId') */
-    
 };
 
 exports.getEditPost = (req,res,next) => {

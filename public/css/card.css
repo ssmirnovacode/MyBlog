@@ -59,9 +59,29 @@
   max-width: 5rem;
 }
 
+.card__comments.container {
+  margin: 1rem;
+}
+
 .card__comments-list {
   list-style-type: none;
   padding-bottom: 1rem;
+}
+
+.card__comments-list header {
+  line-height: 1rem;
+}
+
+.card__comments-list h4 {
+  margin: 0.5rem 0 0 0;
+}
+
+.card__comments-list .card__userpic {
+  width: 3rem;
+}
+
+.card__comments-list h5 {
+  font-size: .7rem;
 }
 
 .fa-thumbs-up {
@@ -76,6 +96,7 @@
 }
 
 @media (min-width: 450px) {
+  
   .card__userpic {
     max-width: 7rem;
   }
@@ -84,4 +105,7 @@
     font-size: 1.2rem;
   }
 
+  .card__comments.container {
+    margin: 2rem;
+  }
 }

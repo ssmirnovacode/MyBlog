@@ -15,7 +15,7 @@ router.post('/add-post', isAuth, [
         check('text').isString().trim().isLength({ min: 5, max: 5000 }).withMessage('Text must have from 5 to 5000 characters')
     ], mainController.postAddPost);
 
-router.get('/posts/:postId', isAuth, mainController.getPostById);
+router.get('/posts/:postId', mainController.getPostById);
 
 router.get('/edit-post/:postId', isAuth, mainController.getEditPost);
 

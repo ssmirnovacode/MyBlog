@@ -13,7 +13,7 @@ body {
 }
 
 .container {
-    margin: 2rem;
+    margin: 1rem;
 }
 
 main, .main {
@@ -58,6 +58,11 @@ main, .main {
   text-decoration: none;
   color: white;
   cursor: pointer;
+}
+
+.main-header__item button,
+#scroll-btn {
+  text-align: center;
 }
 
 .main-header__item a:hover,
@@ -309,6 +314,10 @@ main, .main {
 }
 
 @media (min-width: 600px) {
+
+  .container {
+    margin: 2rem;
+}
   .main-header__nav {
     display: flex;
   }

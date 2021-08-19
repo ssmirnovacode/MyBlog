@@ -26,4 +26,6 @@ router.post('/edit-post', isAuth, [
 
 router.post('/delete-post', isAuth, mainController.deletePost);
 
+router.post('/add-comment/:postId', isAuth, mainController.addComment);
+
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require('express');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Comment = require('../models/Comment');
 const { validationResult } = require('express-validator/check');
 
 const ITEMS_PER_PAGE = 4; 
@@ -196,4 +197,16 @@ exports.deletePost = (req,res,next) => {
     Post.deleteOne({ _id: id, userId: req.session.user._id})
     .then(() => res.redirect('/my-posts'))
     .catch(err => next(new Error(err)));
+};
+
+exports.addComment = (req,res,next) => {
+    const comment = req.body.comment;
+    const postId = req.params.postId;
+    const userId = req.user._id;
+    
+
+    const commentMsg = new Comment({ userId, postId, comment });
+    commentMsg.save()
+    .then(() => res.status(200).redirect(`/posts/${postId}`))
+    .catch(err => console.log(err));
 }

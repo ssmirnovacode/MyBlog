@@ -41,13 +41,12 @@
             <div class="card__comments container">
                 <h3>Comments</h3><hr>
                 <% if (isAuthenticated) { %>
-                <form class="post-form" action="/add-comment" method="POST">
+                <form class="post-form" action="/add-comment/<%= post._id %>" method="POST">
                     <div class="form-control">
-                        <label for="text">Your comment</label>
-                        <textarea class="<%=  %> " 
-                                name="text" id="text" rows="5"><%=  %></textarea>
+                        <label for="comment">Your comment</label>
+                        <textarea name="comment" id="comment" rows="5"></textarea>
                     </div>
-                    <!-- <input type="hidden" name="_csrf" value="<%= csrfToken %>" /> -->
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                     <button class="btn" type="submit">Publish</button>
                 </form>
                 <% } %>

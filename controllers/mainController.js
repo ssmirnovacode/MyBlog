@@ -139,7 +139,7 @@ exports.getPostById = (req,res,next) => {
             comments: postComments
         });
     })
-    .catch(err => next(new Error(err)));
+    .catch(err => next(err));
     /* Post.findOne({ _id: id })
     .populate('userId')
     .populate('comments.commentId') */

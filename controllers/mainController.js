@@ -214,9 +214,23 @@ exports.addComment = (req,res,next) => {
     const postId = req.params.postId;
     const userId = req.user._id;
     
+    /* const errors = validationResult(req);
+    if (!errors.isEmpty()) {       
+        return res.status(422).render('post-details', {
+            path: `/posts/${postId}`,
+            pageTitle: 'Post details', // switch to custom title for post
+            errorMessage: errors.array()[0].msg,
+            post: post,
+            userImg: post.userId.imageUrl || '../images/nofoto.jpg',
+            viewedByAuthor: req.user ? authorId.toString() === currentUser.toString() : false,
+            comments: postComments,
+            validationErrors: errors.array()
+        });
+    } */
 
     const commentMsg = new Comment({ userId, postId, comment });
     commentMsg.save()
     .then(() => res.status(200).redirect(`/posts/${postId}`))
     .catch(err => console.log(err));
+
 }

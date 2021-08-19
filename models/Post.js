@@ -26,7 +26,7 @@ const postSchema = new Schema({
     updatedAt: {
         type: Date
     },
-    comments: [
+/*     comments: [
         {
             commentId: {
                 type: Schema.Types.ObjectId,
@@ -34,7 +34,7 @@ const postSchema = new Schema({
                 ref: 'Comment'
             }
         }
-    ]
+    ] */
 });
 
 module.exports = mongoose.model('Post', postSchema);

@@ -60,9 +60,11 @@ main, .main {
   cursor: pointer;
 }
 
-.main-header__item button,
+#side-menu-toggle,
 #scroll-btn {
   text-align: center;
+  width: auto;
+  padding: 0 0.5rem;
 }
 
 .main-header__item a:hover,
@@ -134,10 +136,10 @@ main, .main {
 #side-menu-toggle {
   border: 1px solid white;
   border-radius: 5px;
-  width: 2.5rem;
+  width: auto;
   font: inherit;
   font-size: 2rem;
-  /* padding: 0.5rem; */
+  padding: 0 0.5rem;
   display: block;
   background: transparent;
   color: white;

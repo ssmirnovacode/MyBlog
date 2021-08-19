@@ -18,9 +18,19 @@
                                     <h3 class="post__title">
                                         <%= p.title %>
                                     </h3>
-                                    <h5>Created: <%= p.createdAt.toISOString().slice(0,-5).split('T').join(' at ') %></h5>
+                                    <h5>Created: <%= p.createdAt.toISOString().slice(0,-5).split('T').map(item => {
+                                        if (item.indexOf('-') > 0) {
+                                          item = item.split('-').reverse().join('-');
+                                        }
+                                        return item;
+                                      }).join(' at ')  %></h5>
                                     <% if (p.updatedAt) { %>
-                                    <h5>Updated: <%= p.updatedAt.toISOString().slice(0,-5).split('T').join(' at ') %></h5>
+                                    <h5>Updated: <%= p.updatedAt.toISOString().slice(0,-5).split('T').map(item => {
+                                        if (item.indexOf('-') > 0) {
+                                          item = item.split('-').reverse().join('-');
+                                        }
+                                        return item;
+                                      }).join(' at ')  %></h5>
                                     <% } %>
                                     </div>
                                 </div>

@@ -64,6 +64,16 @@
   padding-bottom: 1rem;
 }
 
+.fa-thumbs-up {
+  font-size: 2rem;
+  color: #00695c;
+}
+
+.card__likes{
+  margin-left: auto;
+  cursor: pointer;
+}
+
 @media (min-width: 450px) {
   .card__userpic {
     max-width: 7rem;

@@ -28,6 +28,7 @@
                 </p>
             </div>
             <div class="card__actions">
+                
                 <% if (isAuthenticated && viewedByAuthor) { %>
                 <a href="/edit-post/<%= post._id %>" class="btn warning">Edit</a>
                 <form action="/delete-post" method="POST">
@@ -36,6 +37,10 @@
                     <button class="btn danger" type="submit">Delete</button>
                 </form>
                 <% } %>
+                <div class="card__likes">
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <span class="card__likes-count">2</span>
+                </div>
             </div>
 
             <div class="card__comments container">

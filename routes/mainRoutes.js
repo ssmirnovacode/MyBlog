@@ -17,6 +17,8 @@ router.post('/add-post', isAuth, [
 
 router.get('/posts/:postId', isAuth, mainController.getPostById);
 
+router.post('/posts/:postId', isAuth, mainController.toggleLikes);
+
 router.get('/edit-post/:postId', isAuth, mainController.getEditPost);
 
 router.post('/edit-post', isAuth, [

@@ -139,10 +139,7 @@ exports.getPostById = (req,res,next) => {
             comments: postComments
         });
     })
-    .catch(err => next(new Error(err)));
-    /* Post.findOne({ _id: id })
-    .populate('userId')
-    .populate('comments.commentId') */
+    .catch(err => console.log(err));
     
 };
 
@@ -220,5 +217,25 @@ exports.addComment = (req,res,next) => {
     const commentMsg = new Comment({ userId, postId, comment });
     commentMsg.save()
     .then(() => res.status(200).redirect(`/posts/${postId}`))
+    .catch(err => next(err));
+};
+
+exports.toggleLikes = (req,res,next) => {
+    const currentUserId = req.user._id;
+    const postId = req.params.postId;
+
+    Post.find({ _id: postId })
+    .populate('likes.userId')
+    .then(post => {
+        console.log(post.likes);
+        if (post.likes.find(like => like.userId === currentUserId)) {
+            //delete like
+        }
+        else {
+            post.likes.push({ userId: currentUserId });
+            return post.save()
+        }
+    })
+    .then(() => res.redirect(`/posts/${postId}`))
     .catch(err => console.log(err));
 }

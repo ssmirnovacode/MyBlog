@@ -38,7 +38,8 @@
                 </form>
                 <% } %>
                 <div class="card__likes">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                    <i class="fa fa-thumbs-up" id="<%= post._id %>"  aria-hidden="true"></i>
                     <span class="card__likes-count"><%= post.likes ? post.likes.length : 0 %></span>
                 </div>
             </div>

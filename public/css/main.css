@@ -133,8 +133,7 @@ main, .main {
   border-radius: 3px;
 }
 
-#side-menu-toggle,
-#scroll-btn {
+#side-menu-toggle {
   border: 1px solid white;
   border-radius: 5px;
   width: auto;
@@ -301,7 +300,8 @@ main, .main {
 }
 
 #scroll-btn {
-  width: 1.5rem;
+  text-align: center;
+  width: auto;
   background-color: #00695c;
   border: 1px solid white;
   border-radius: 5px;
@@ -309,7 +309,7 @@ main, .main {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  padding: .8rem .5rem;
+  padding: .5rem .5rem;
   position: fixed;
   bottom: 1rem;
   right: 1rem;

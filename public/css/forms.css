@@ -5,6 +5,13 @@
   display: block;
 }
 
+.post-form.add-comment {
+  width: 20rem;
+  max-width: 90%;
+  margin: 1rem;
+  display: block;
+}
+
 .form-control {
   margin: 1rem 0;
 }

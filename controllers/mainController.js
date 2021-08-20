@@ -135,6 +135,7 @@ exports.getPostById = (req,res,next) => {
         res.render('post-details', {
             pageTitle: post.title,
             path: `/posts/${post._id}`,
+            errorMessage: '',
             post: post,
             userImg: post.userId.imageUrl || '../images/nofoto.jpg',
             viewedByAuthor: req.user ? authorId.toString() === currentUser.toString() : false,
@@ -213,24 +214,38 @@ exports.addComment = (req,res,next) => {
     const comment = req.body.comment;
     const postId = req.params.postId;
     const userId = req.user._id;
-    
-    /* const errors = validationResult(req);
-    if (!errors.isEmpty()) {       
-        return res.status(422).render('post-details', {
-            path: `/posts/${postId}`,
-            pageTitle: 'Post details', // switch to custom title for post
-            errorMessage: errors.array()[0].msg,
-            post: post,
-            userImg: post.userId.imageUrl || '../images/nofoto.jpg',
-            viewedByAuthor: req.user ? authorId.toString() === currentUser.toString() : false,
-            comments: postComments,
-            validationErrors: errors.array()
-        });
-    } */
+    const errors = validationResult(req);
+    let postComments;
 
-    const commentMsg = new Comment({ userId, postId, comment });
-    commentMsg.save()
-    .then(() => res.status(200).redirect(`/posts/${postId}`))
+    Comment.find({ postId: postId })
+    .sort({ createdAt: -1 })
+    .populate('userId')
+    .then(comments => {
+        postComments = comments;
+        return Post.findOne({ _id: postId })
+            .populate('userId')
+    })
+    .then(post => {
+        const authorId = post.userId._id;
+        const currentUser = req.user ? req.user._id.toString() : null;
+        if (!errors.isEmpty()) {    
+            res.status(422).render('post-details', {
+                path: `/posts/${postId}`,
+                pageTitle: post.title, 
+                errorMessage: errors.array()[0].msg,
+                post: post,
+                userImg: post.userId.imageUrl || '../images/nofoto.jpg',
+                viewedByAuthor: req.user ? authorId.toString() === currentUser.toString() : false,
+                comments: postComments,
+                validationErrors: errors.array()
+            });
+        }
+        else {
+            const commentMsg = new Comment({ userId, postId, comment });
+            commentMsg.save()
+                .then(() => res.status(200).redirect(`/posts/${postId}`))
+                .catch(err => console.log(err));
+        }
+    })
     .catch(err => console.log(err));
-
 }

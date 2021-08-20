@@ -6,7 +6,9 @@
 <body>
     <%- include('./includes/navigation.ejs') %>
     <main class="container">
-
+        <% if (errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
         <article class="card post-item">
             <header class="card__header card__flex">
                     <img src="<%= userImg  %>" alt="" class="card__userpic">

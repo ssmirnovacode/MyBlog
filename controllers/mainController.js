@@ -26,7 +26,7 @@ exports.getIndex = (req,res,next) => {
         .then(posts => {
             //console.log(posts);
             res.render('index', {
-                pageTitle: 'Home',
+                pageTitle: 'MYblog',
                 path: '/',
                 posts: posts,
                 currentPage: page,

@@ -162,6 +162,7 @@ main, .main {
   font-weight: bold;
   color: white;
   margin: 0 0 0 auto;
+  text-decoration: none;
 }
 
 .backdrop {

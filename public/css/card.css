@@ -98,7 +98,7 @@
 }
 
 .card__likes{
-  display: none;
+  /* display: none; */
   margin-left: auto;
   cursor: pointer;
 }

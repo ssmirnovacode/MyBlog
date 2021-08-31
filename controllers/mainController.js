@@ -2,6 +2,7 @@ const express = require('express');
 const Post = require('../models/Post');
 const User = require('../models/User');
 const Comment = require('../models/Comment');
+const Like = require('../models/Like');
 const { validationResult } = require('express-validator/check');
 
 const ITEMS_PER_PAGE = 4; 
@@ -139,7 +140,8 @@ exports.getPostById = (req,res,next) => {
             post: post,
             userImg: post.userId.imageUrl || '../images/nofoto.jpg',
             viewedByAuthor: req.user ? authorId.toString() === currentUser.toString() : false,
-            comments: postComments
+            comments: postComments,
+            likes: post.likes ? post.likes.length : 0
         });
     })
     .catch(err => next(err));
@@ -248,4 +250,24 @@ exports.addComment = (req,res,next) => {
         }
     })
     .catch(err => console.log(err));
+};
+
+exports.addLike = (req,res,next) => {
+
+}
+
+exports.getLikes = (req,res,next) => {
+    const postId = req.params.postId;
+
+    Like.find({ postId: postId })
+    .then(likes => {
+        const userLike = likes.find(like => like.userId.toString() === req.user._id.toString());
+        if (userLike) {
+            Like.deleteOne({ userId: req.user._id});
+        }
+        else {
+            const newLike = new Like( { postId, userId })
+            newLike.save()
+        }
+    })
 }

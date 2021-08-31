@@ -30,4 +30,8 @@ router.post('/add-comment/:postId', isAuth, [
     check('comment').isString().trim().isLength({ min: 3, max: 500 }).withMessage('Comment must have from 3 to 500 characters')
 ], mainController.addComment);
 
+//router.post('/add-like/:postId', isAuth, mainController.addLike)
+
+router.get('/likes/:postId', isAuth, mainController.getLikes);
+
 module.exports = router;

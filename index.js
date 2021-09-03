@@ -15,6 +15,7 @@ const authRoutes = require('./routes/authRoutes');
 const errorController = require('./controllers/errorController');
 
 const MONGODB_URI =  process.env.MONGODB_URI;
+const SESSION_SECRET = process.env.SESSION_SEC;
 
 const csrfProtection = csrf();
 
@@ -34,7 +35,7 @@ const storage = new MongoDBStore({
 });
 
 app.use(session({ 
-    secret: 'mySecretIsSafe',  
+    secret: SESSION_SECRET,  
     resave: false, 
     saveUninitialized: false,
     store: storage

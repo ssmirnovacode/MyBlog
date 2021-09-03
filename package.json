@@ -23,6 +23,7 @@
     "express-session": "^1.17.2",
     "express-validator": "^6.12.1",
     "mongoose": "^5.13.6",
+    "mpath": "^0.8.4",
     "nodemon": "^2.0.12"
   }
 }

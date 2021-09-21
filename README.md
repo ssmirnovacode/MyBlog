@@ -1,7 +1,7 @@
 # MYblog
 
 Simple minimalistic multiuser blog web app:
-https://my-blog-ssmirnova.herokuapp.com/
+https://blog-mn.herokuapp.com/
 
 ## Key features
 - CRUD functionality
